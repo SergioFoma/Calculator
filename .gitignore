@@ -1,0 +1,5 @@
+*.obj
+*.exe
+*.save
+Build/
+.vscode/

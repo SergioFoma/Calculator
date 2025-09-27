@@ -1,0 +1,1258 @@
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 1
+Compacity = 10
+.data[010404B0]
+Code of error = 0
+*[0] = 179171341
+ [1] = 765911( POISON )
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 1
+Compacity = 10
+.data[010404B0]
+Code of error = 0
+*[0] = 179171341
+ [1] = 765911( POISON )
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 1
+Compacity = 10
+.data[010404B0]
+Code of error = 0
+*[0] = 179171341
+ [1] = 765911( POISON )
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPush, in line 27
+stack[007AFEEC]
+Size = 1
+Compacity = 10
+.data[00FE04B0]
+Code of error = 0
+*[0] = 179171341
+ [1] = 765911( POISON )
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 2
+Compacity = 10
+.data[00FE04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 10
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPush, in line 27
+stack[007AFEEC]
+Size = 2
+Compacity = 10
+.data[00FE04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 10
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 3
+Compacity = 10
+.data[00FE04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 10
+*[2] = -10
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPop, in line 44
+stack[007AFEEC]
+Size = 3
+Compacity = 10
+.data[00FE04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 10
+*[2] = -10
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPop, in line 44
+stack[007AFEEC]
+Size = 2
+Compacity = 10
+.data[00FE04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 10
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPush, in line 27
+stack[007AFEEC]
+Size = 1
+Compacity = 10
+.data[00FE04B0]
+Code of error = 0
+*[0] = 179171341
+ [1] = 765911( POISON )
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 2
+Compacity = 10
+.data[00FE04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPush, in line 27
+stack[007AFEEC]
+Size = 2
+Compacity = 10
+.data[00FE04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 3
+Compacity = 10
+.data[00FE04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+*[2] = 10
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPush, in line 27
+stack[007AFEEC]
+Size = 3
+Compacity = 10
+.data[00FE04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+*[2] = 10
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 4
+Compacity = 10
+.data[00FE04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+*[2] = 10
+*[3] = 30
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPop, in line 44
+stack[007AFEEC]
+Size = 4
+Compacity = 10
+.data[00FE04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+*[2] = 10
+*[3] = 30
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPop, in line 44
+stack[007AFEEC]
+Size = 3
+Compacity = 10
+.data[00FE04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+*[2] = 10
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPush, in line 27
+stack[007AFEEC]
+Size = 2
+Compacity = 10
+.data[00FE04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 3
+Compacity = 10
+.data[00FE04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+*[2] = 0
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPush, in line 27
+stack[007AFEEC]
+Size = 3
+Compacity = 10
+.data[00FE04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+*[2] = 0
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 4
+Compacity = 10
+.data[00FE04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+*[2] = 0
+*[3] = 15
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPush, in line 27
+stack[007AFEEC]
+Size = 4
+Compacity = 10
+.data[00FE04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+*[2] = 0
+*[3] = 15
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 5
+Compacity = 10
+.data[00FE04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+*[2] = 0
+*[3] = 15
+*[4] = 34
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPop, in line 44
+stack[007AFEEC]
+Size = 5
+Compacity = 10
+.data[00FE04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+*[2] = 0
+*[3] = 15
+*[4] = 34
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPop, in line 44
+stack[007AFEEC]
+Size = 4
+Compacity = 10
+.data[00FE04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+*[2] = 0
+*[3] = 15
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPush, in line 27
+stack[007AFEEC]
+Size = 3
+Compacity = 10
+.data[00FE04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+*[2] = 0
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 4
+Compacity = 10
+.data[00FE04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+*[2] = 0
+*[3] = 510
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPop, in line 44
+stack[007AFEEC]
+Size = 4
+Compacity = 10
+.data[00FE04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+*[2] = 0
+*[3] = 510
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 3
+Compacity = 10
+.data[00FE04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+*[2] = 0
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPush, in line 27
+stack[007AFEEC]
+Size = 1
+Compacity = 10
+.data[008E04B0]
+Code of error = 0
+*[0] = 179171341
+ [1] = 765911( POISON )
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 2
+Compacity = 10
+.data[008E04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPush, in line 27
+stack[007AFEEC]
+Size = 2
+Compacity = 10
+.data[008E04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 3
+Compacity = 10
+.data[008E04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+*[2] = 0
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPop, in line 44
+stack[007AFEEC]
+Size = 3
+Compacity = 10
+.data[008E04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+*[2] = 0
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPop, in line 44
+stack[007AFEEC]
+Size = 2
+Compacity = 10
+.data[008E04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 1
+Compacity = 10
+.data[008E04B0]
+Code of error = 0
+*[0] = 179171341
+ [1] = 765911( POISON )
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPush, in line 27
+stack[007AFEEC]
+Size = 1
+Compacity = 10
+.data[008B04B0]
+Code of error = 0
+*[0] = 179171341
+ [1] = 765911( POISON )
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 2
+Compacity = 10
+.data[008B04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPush, in line 27
+stack[007AFEEC]
+Size = 2
+Compacity = 10
+.data[008B04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 3
+Compacity = 10
+.data[008B04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+*[2] = -10
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPop, in line 44
+stack[007AFEEC]
+Size = 3
+Compacity = 10
+.data[008B04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+*[2] = -10
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPop, in line 44
+stack[007AFEEC]
+Size = 2
+Compacity = 10
+.data[008B04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPush, in line 27
+stack[007AFEEC]
+Size = 1
+Compacity = 10
+.data[008B04B0]
+Code of error = 0
+*[0] = 179171341
+ [1] = 765911( POISON )
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 2
+Compacity = 10
+.data[008B04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 0
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPush, in line 27
+stack[007AFEEC]
+Size = 1
+Compacity = 10
+.data[013604B0]
+Code of error = 0
+*[0] = 179171341
+ [1] = 765911( POISON )
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 2
+Compacity = 10
+.data[013604B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 10
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPush, in line 27
+stack[007AFEEC]
+Size = 2
+Compacity = 10
+.data[013604B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 10
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 3
+Compacity = 10
+.data[013604B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 10
+*[2] = 30
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPop, in line 44
+stack[007AFEEC]
+Size = 3
+Compacity = 10
+.data[013604B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 10
+*[2] = 30
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPop, in line 44
+stack[007AFEEC]
+Size = 2
+Compacity = 10
+.data[013604B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 10
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPush, in line 27
+stack[007AFEEC]
+Size = 1
+Compacity = 10
+.data[013604B0]
+Code of error = 0
+*[0] = 179171341
+ [1] = 765911( POISON )
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 2
+Compacity = 10
+.data[013604B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = -20
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPush, in line 27
+stack[007AFEEC]
+Size = 2
+Compacity = 10
+.data[013604B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = -20
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 3
+Compacity = 10
+.data[013604B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = -20
+*[2] = 10
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 3
+Compacity = 10
+.data[013604B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = -20
+*[2] = 10
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPush, in line 27
+stack[007AFEEC]
+Size = 1
+Compacity = 10
+.data[013104B0]
+Code of error = 0
+*[0] = 179171341
+ [1] = 765911( POISON )
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 2
+Compacity = 10
+.data[013104B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 10
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPush, in line 27
+stack[007AFEEC]
+Size = 2
+Compacity = 10
+.data[013104B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 10
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 3
+Compacity = 10
+.data[013104B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 10
+*[2] = 5
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 3
+Compacity = 10
+.data[013104B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 10
+*[2] = 5
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPush, in line 27
+stack[007AFEEC]
+Size = 1
+Compacity = 10
+.data[00ED04B0]
+Code of error = 0
+*[0] = 179171341
+ [1] = 765911( POISON )
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 2
+Compacity = 10
+.data[00ED04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 10
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPop, in line 44
+stack[007AFEEC]
+Size = 2
+Compacity = 10
+.data[00ED04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 10
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 1
+Compacity = 10
+.data[00ED04B0]
+Code of error = 0
+*[0] = 179171341
+ [1] = 765911( POISON )
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPop, in line 44
+stack[007AFEEC]
+Size = 1
+Compacity = 10
+.data[00ED04B0]
+Code of error = 0
+*[0] = 179171341
+ [1] = 765911( POISON )
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 1
+Compacity = 10
+.data[00ED04B0]
+Code of error = 0
+*[0] = 179171341
+ [1] = 765911( POISON )
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPop, in line 44
+stack[007AFEEC]
+Size = 1
+Compacity = 10
+.data[00ED04B0]
+Code of error = 0
+*[0] = 179171341
+ [1] = 765911( POISON )
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 1
+Compacity = 10
+.data[00ED04B0]
+Code of error = 0
+*[0] = 179171341
+ [1] = 765911( POISON )
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPush, in line 27
+stack[007AFEEC]
+Size = 1
+Compacity = 10
+.data[011A04B0]
+Code of error = 0
+*[0] = 179171341
+ [1] = 765911( POISON )
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 2
+Compacity = 10
+.data[011A04B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 2000000
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPush, in line 27
+stack[007AFEEC]
+Size = 1
+Compacity = 10
+.data[00F804B0]
+Code of error = 0
+*[0] = 179171341
+ [1] = 765911( POISON )
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 2
+Compacity = 10
+.data[00F804B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 2000000
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPop, in line 44
+stack[007AFEEC]
+Size = 2
+Compacity = 10
+.data[00F804B0]
+Code of error = 0
+*[0] = 179171341
+*[1] = 2000000
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
+
+stackDump called from file ./src/stack.cpp, in function stackPrint, in line 53
+stack[007AFEEC]
+Size = 1
+Compacity = 10
+.data[00F804B0]
+Code of error = 0
+*[0] = 179171341
+ [1] = 765911( POISON )
+ [2] = 765911( POISON )
+ [3] = 765911( POISON )
+ [4] = 765911( POISON )
+ [5] = 765911( POISON )
+ [6] = 765911( POISON )
+ [7] = 765911( POISON )
+ [8] = 765911( POISON )
+*[9] = 179171341
