@@ -5,10 +5,14 @@
 #else
 
 void stackDump( const char* file, const char* func, int line, stack_t *stk );
+stackErr_t stackVerif( stack_t *stk );
 
-#define STACK_OK( stk )                                             \
-    do{                                                             \
-        ( stackDump( __FILE__, __func__, __LINE__,  stk ) );         \
-    }while( false )                                                                                                         
+#define STACK_OK( stk )                                              \
+    do{                                                              \
+        if( stackVerif( stk ) != CORRECT ) {                         \
+            ( stackDump( __FILE__, __func__, __LINE__,  stk ) );     \
+            return ;                                                 \
+        }                                                            \
+    }while( false )
 
 #endif

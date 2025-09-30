@@ -14,9 +14,11 @@ enum stackErr_t  {
     FILE_NULL_PTR          = 1,
     FUNC_NUL_PTR           = 2,
     DATA_NULL_PTR          = 3,
-    NEGATIV_SIZE           = 4,
-    NEGATIVE_COMPACITY     = 5,
-    NEGATIVE_LINE          = 6,
+    STK_NULL_PTR           = 4,
+    NEGATIVE_SIZE          = 5,
+    NEGATIVE_COMPACITY     = 6,
+    NEGATIVE_LINE          = 7,
+    STACK_OVERFLOW         = 8
 };
 
 struct stack_t{

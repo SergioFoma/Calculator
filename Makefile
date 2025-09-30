@@ -1,4 +1,4 @@
-CXX = @g++
+CXX = g++
 
 BUILD_DIR = Build
 
@@ -13,7 +13,7 @@ FLAGS = -Wshadow -Winit-self -Wredundant-decls -Wcast-align \
 EXE_NAME = $(BUILD_DIR)/Result.exe
 
 SOURCES = main.cpp stack.cpp checkError.cpp paint.cpp calculator.cpp
-OBJECTS = $(SOURCES:.cpp=.obj) 
+OBJECTS = $(SOURCES:.cpp=.obj)
 
 OBJECTS_IN_SOURCE = $(addprefix src/, $(OBJECTS))
 
@@ -25,7 +25,7 @@ $(EXE_NAME): makeBuild $(OBJECTS_IN_SOURCE)
 	$(CXX) $(FLAGS) $(addprefix ./$(BUILD_DIR)/, $(OBJECTS_IN_SOURCE)) -o $(EXE_NAME)
 
 $(OBJECTS_IN_SOURCE): %.obj: %.cpp
-	$(CXX) $(FLAGS) -I ./include -c ./$^ -o ./$(BUILD_DIR)/$@ 
+	$(CXX) $(FLAGS) -I ./include -c ./$^ -o ./$(BUILD_DIR)/$@
 
 makeBuild:
 	mkdir -p ./$(BUILD_DIR)/src

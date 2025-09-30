@@ -1,4 +1,4 @@
-#include <TXLib.h>
+//#include <TXLib.h>
 #include <stdio.h>
 
 #include "stack.h"
@@ -11,9 +11,9 @@ int main(){
     stack_t stk = {};
 
     stackInit( &stk, startSize );
-    
+
     calculator( &stk );
-    
+
     stackDestroy( &stk );
 
     return 0;
