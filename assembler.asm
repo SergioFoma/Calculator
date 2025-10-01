@@ -1,11 +1,11 @@
+PUSH 2 ; ADD Element
 PUSH 2
-PUSH 2
-MUL
+MUL ; Do multiplication
 PUSH 4
 PUSH 1
 PUSH -10
 MUL
 MUL
-SUB
-OUT
-HLT
+SUB ; Do subtraction
+OUT ; Get result
+HLT ; Stop

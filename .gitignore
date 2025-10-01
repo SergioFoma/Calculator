@@ -1,5 +1,6 @@
 *.obj
 *.exe
 *.save
-Build/
+ASM/Build/
+Processor/Build/
 .vscode/
