@@ -5,7 +5,7 @@
 #include "calculator.h"
 
 void calculator( stack_t *stk ){
-    char command[20] = "\0";
+    char command[20] = "\0"; // TODO magic number
     int number = 0;
     type first = 0, last = 0;
     while(true){
@@ -51,6 +51,6 @@ void calculator( stack_t *stk ){
             break;
         }
 
-        stackPrint( stk );
+        //stackPrint( stk );
     }
 }

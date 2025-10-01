@@ -92,4 +92,13 @@ const char* getStyleString( Styles style );
 //!
 //-------------------------------------------------------------------------------------------------------
 void squareHelp();
+
+int printfError_(const char* file, const char* function, int line, const char* lineForError ...);
+
+#define printfError( lineForError)                                                  \
+    do {                                                                            \
+        ( printfError_( __FILE__, __func__ , __LINE__, lineForError) );             \
+    } while(false);                                                                 \
+
+
 #endif

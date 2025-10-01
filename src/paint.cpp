@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <malloc.h>
+#include <assert.h>
 
 const char* getColorString( Colors color ) {
     switch (color) {
@@ -59,8 +60,8 @@ const char* getStyleString( Styles style ) {
 
 void colorPrintf( Styles style, Colors color,  const char* line ... ) {
 
-    va_list args; // объявляем указатель
-    va_start( args, line ); // связываем args с первым необязательным параметром. va_list как указатель
+    va_list args; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    va_start( args, line ); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ args пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. va_list пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
     printf("%s", getStyleString( style ) );
     printf("%s", getColorString(color));
@@ -70,6 +71,7 @@ void colorPrintf( Styles style, Colors color,  const char* line ... ) {
     va_end( args );
 }
 
+// TODO sotri nahui
 void squareHelp() {
 
     colorPrintf(NOMODE, YELLOW, "    NOTE: this program solves a quadratic equation\n"
@@ -85,4 +87,23 @@ void squareHelp() {
 
     printf("%s", colorReset );
 
+}
+
+int printfError_(const char* file, const char* function, int line, const char* lineForError ...){
+    assert( file != NULL );
+    assert( function != NULL );
+    assert( line != NULL );
+    assert( lineForError != NULL );
+
+    va_list args; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    va_start( args, lineForError ); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ args пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. va_list пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+
+    printf("%s", getStyleString( NOMODE ));
+    printf("%s", getColorString( RED ));
+    printf("\nError in %s, in function %s, in line %d\n", file, function, line);
+    vprintf(lineForError, args);
+    printf("%s", colorReset );
+
+    va_end( args );
+    return 0;
 }
