@@ -4,7 +4,7 @@
 
 const int poison = 765911;
 
-stackErr_t stackVerif( stack_t *stk ){
+stackErr_t stackVerify( stack_t *stk ){
     if( stk == NULL ){
         stk->error = STK_NULL_PTR;
         return STK_NULL_PTR;
@@ -17,12 +17,12 @@ stackErr_t stackVerif( stack_t *stk ){
         stk->error = NEGATIVE_SIZE;
         return NEGATIVE_SIZE;
     }
-    else if( stk->compacity < 1 ){
-        stk->error = NEGATIVE_COMPACITY;
-        return NEGATIVE_COMPACITY;
+    else if( stk->capacity < 1 ){
+        stk->error = NEGATIVE_CAPACITY;
+        return NEGATIVE_CAPACITY;
     }
 
-    if( (stk->data)[0] != canary || (stk->data)[stk->compacity - 1] != canary){
+    if( (stk->data)[0] != canary || (stk->data)[stk->capacity - 1] != canary){
         stk->error = STACK_OVERFLOW;
         return STACK_OVERFLOW;
     }
@@ -72,9 +72,9 @@ void stackDump( const char* file, const char* func, int line, stack_t *stk ){
     }
     fprintf( fileForDump, "\nstackDump called from file %s, in function %s, in line %d\n", file, func, line);
     fprintf( fileForDump, "stack[%p]\nSize = %lu\nCompacity = %lu\n.data[%p]\nCode of error = %d\n",
-            stk, stk->size, stk->compacity, stk->data, stk->error );
-    for( size_t index = 0; index < ( stk->compacity ); index++ ){
-        if( index < (stk->size) || index == stk->compacity - 1 ){
+            stk, stk->size, stk->capacity, stk->data, stk->error );
+    for( size_t index = 0; index < ( stk->capacity ); index++ ){
+        if( index < (stk->size) || index == stk->capacity - 1 ){
             fprintf( fileForDump, "*[%lu] = %d\n", index, (stk->data)[index] );
         }
         else{

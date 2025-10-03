@@ -91,7 +91,6 @@ const char* getStyleString( Styles style );
 //! @note �������� ��������� �� ����������� ��������� SquareSolver.
 //!
 //-------------------------------------------------------------------------------------------------------
-void squareHelp();
 
 int printfError_(const char* file, const char* function, int line, const char* lineForError ...);
 

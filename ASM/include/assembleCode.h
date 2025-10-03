@@ -5,7 +5,7 @@
 
 #include "onegin.h"
 
-const size_t lenOfCommand = 10;
+const size_t lenOfCommand = 20;
 
 void assemble( const char* fileForAsm, const char* fileForByteCode );
 

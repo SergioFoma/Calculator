@@ -10,8 +10,8 @@ FLAGS = -Wshadow -Winit-self -Wredundant-decls -Wcast-align \
 	-Wnon-virtual-dtor -Woverloaded-virtual -Wpointer-arith -Wsign-promo -Wstack-usage=8192 -Wstrict-aliasing\
 	-Wstrict-null-sentinel -Wtype-limits -Wwrite-strings -Werror=vla -D_DEBUG -D_EJUDGE_CLIENT_SIDE
 
-FOLDER_NAME = ASM
-SOURCES = main.cpp paint.cpp assembleCode.cpp onegin.cpp
+FOLDER_NAME = Processor
+SOURCES = main.cpp stack.cpp checkError.cpp paint.cpp SPULoop.cpp onegin.cpp softProcessor.cpp
 
 EXE_NAME = $(addprefix $(FOLDER_NAME)/, $(BUILD_DIR) )/Result.exe  # Processor/Build/Result.exe
 
@@ -37,7 +37,7 @@ clean:
 
 #Processor:
 #	FOLDER_NAME = Processor
-#	SOURCES = main.cpp stack.cpp checkError.cpp paint.cpp calculator.cpp
+#	SOURCES = main.cpp stack.cpp checkError.cpp paint.cpp SPULoop.cpp onegin.cpp softProcessor.cpp
 #ASM:
 #	FOLDER_NAME = ASM
 #	SOURCES = main.cpp paint.cpp assembleCode.cpp onegin.cpp

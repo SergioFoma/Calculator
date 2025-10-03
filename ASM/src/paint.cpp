@@ -71,24 +71,6 @@ void colorPrintf( Styles style, Colors color,  const char* line ... ) {
     va_end( args );
 }
 
-// TODO sotri nahui
-void squareHelp() {
-
-    colorPrintf(NOMODE, YELLOW, "    NOTE: this program solves a quadratic equation\n"
-           "          of the form ax^2+bx+c\n\n"
-           "   PRINT: the roots of the quadratic equation and their number\n\n"
-           "   --help     display this help and exit\n\n"
-           "   Some flags, that are used in int this program:\n\n"
-           "   --Test      Prints unit tests that check the operation of a program \n"
-           "               that solves a quadratic equation\n\n"
-           "   --file-test Runs unit tests from a file\n"
-           "     that will be specified after the flag\n\n"
-        );
-
-    printf("%s", colorReset );
-
-}
-
 int printfError_(const char* file, const char* function, int line, const char* lineForError ...){
     assert( file != NULL );
     assert( function != NULL );

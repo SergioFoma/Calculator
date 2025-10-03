@@ -16,15 +16,15 @@ enum stackErr_t  {
     DATA_NULL_PTR          = 3,
     STK_NULL_PTR           = 4,
     NEGATIVE_SIZE          = 5,
-    NEGATIVE_COMPACITY     = 6,
+    NEGATIVE_CAPACITY      = 6,
     NEGATIVE_LINE          = 7,
-    STACK_OVERFLOW         = 8
+    STACK_OVERFLOW         = 8,
 };
 
 struct stack_t{
     type* data;
     size_t size;
-    size_t compacity;
+    size_t capacity;
     stackErr_t error;
 };
 
@@ -37,7 +37,5 @@ type stackPop( stack_t *stk );
 void stackPrint( stack_t *stk );
 
 void stackDestroy( stack_t *size );
-
-void calculateTest( stack_t *size );
 
 #endif
