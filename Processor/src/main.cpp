@@ -10,27 +10,18 @@
 
 int main(int* argc, char** argv){
 
+    stack_t stk = {};
+    size_t startSize = 8;
+
+    stackInit( &stk, startSize );
+
     if( strcmp( argv[1], "--softProcessor" ) == 0 ){
-        Code informationOfCommand = {};
-
-        softProcessor( "BYTE-CODE.txt", &informationOfCommand );
-
-        for( size_t index = 0; index < informationOfCommand.sizeOfCommands; index++ ){
-            printf("%d ", informationOfCommand.command[ index ] );
-        }
-        printf("\n");
-        free( informationOfCommand.command );
+        calculationFromProcessor( &stk );
     }
     else if( strcmp( argv[1], "--SPULoop" ) == 0 ){
-        stack_t stk = {};
-        size_t startSize = 8;
-
-        stackInit( &stk, startSize );
-
         SPULoop( &stk );
-
-        stackDestroy( &stk );
     }
 
+    stackDestroy( &stk );
     return 0;
 }
