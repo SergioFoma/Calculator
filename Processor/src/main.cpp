@@ -10,18 +10,25 @@
 
 int main(int* argc, char** argv){
 
-    stack_t stk = {};
+    /*stack_t stk = {};
     size_t startSize = 8;
 
-    stackInit( &stk, startSize );
+    stackInit( &stk, startSize );*/
+
+    Processor SPU = {};
+
+    processorInit( &SPU );
 
     if( strcmp( argv[1], "--softProcessor" ) == 0 ){
-        calculationFromProcessor( &stk );
+        calculationFromProcessor( &SPU );
     }
-    else if( strcmp( argv[1], "--SPULoop" ) == 0 ){
+    /*else if( strcmp( argv[1], "--SPULoop" ) == 0 ){
         SPULoop( &stk );
     }
 
-    stackDestroy( &stk );
+    stackDestroy( &stk );*/
+
+    processorDestroy( &SPU );
+    
     return 0;
 }

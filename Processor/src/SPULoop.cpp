@@ -63,62 +63,60 @@ void SPULoop( stack_t *stk ){
     }
 }
 
-void calculationFromProcessor( stack_t *stk ){
+void calculationFromProcessor( Processor *SPU ){
 
-    Code informationOfCommand = {};
-    softProcessor( "BYTE-CODE.txt", &informationOfCommand );
+    softProcessor( "BYTE-CODE.txt", SPU );
     size_t index = 0;
     int first = 0, last = 0, DO = 1;
 
-    while( index < informationOfCommand.sizeOfCommands && DO ){
-        switch( informationOfCommand.command[ index ] ){
+    while( index < (SPU->code).sizeOfCommands && DO ){
+        switch( (SPU->code).command[ index ] ){
             case 0:
                 DO = 0;
                 break;
             case 1:
-                stackPush( stk, informationOfCommand.command[ ++index ] );
-                stackPrint( stk );
+                stackPush( &(SPU->stk), (SPU->code).command[ ++index ] );
+                stackPrint( &(SPU->stk) );
                 break;
             case 2:
-                last = stackPop( stk );
-                first = stackPop( stk );
-                stackPush( stk, first * last );
-                stackPrint( stk );
+                last = stackPop( &(SPU->stk) );
+                first = stackPop( &(SPU->stk) );
+                stackPush( &(SPU->stk), first * last );
+                stackPrint( &(SPU->stk) );
                 break;
             case 3:
-                last = stackPop( stk );
-                first = stackPop( stk );
-                stackPush( stk, first - last );
-                stackPrint( stk );
+                last = stackPop( &(SPU->stk) );
+                first = stackPop( &(SPU->stk) );
+                stackPush( &(SPU->stk), first - last );
+                stackPrint( &(SPU->stk) );
                 break;
             case 4:
-                printf("%d\n", stackPop( stk ) );
-                stackPrint( stk );
+                printf("%d\n", stackPop( &(SPU->stk ) ) );
+                stackPrint( &(SPU->stk) );
                 break;
             case 5:
-                last = stackPop( stk );
-                first = stackPop( stk );
-                stackPush( stk, first + last );
-                stackPrint( stk );
+                last = stackPop( &(SPU->stk) );
+                first = stackPop( &(SPU->stk) );
+                stackPush( &(SPU->stk) , first + last );
+                stackPrint( &(SPU->stk) );
                 break;
             case 6:
-                last = stackPop( stk );
-                first = stackPop( stk );
+                last = stackPop( &(SPU->stk) );
+                first = stackPop( &(SPU->stk) );
                 if ( last != 0 ){
-                    stackPush( stk, first / last );
+                    stackPush( &(SPU->stk), first / last );
                 }
-                stackPrint( stk );
+                stackPrint( &(SPU->stk) );
                 break;
             case 7:
-                last = stackPop( stk );
+                last = stackPop( &(SPU->stk) );
                 if( last >= 0 ){
                     printf("%d\n", (int)sqrt( last ) );
                 }
-                stackPrint( stk );
+                stackPrint( &(SPU->stk) );
                 break;
         }
         ++index;
     }
 
-    free( informationOfCommand.command );
 }

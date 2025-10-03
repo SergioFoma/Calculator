@@ -85,6 +85,30 @@ void writeToFile( strInformation stringFromFile, FILE* byteFile ){
         else if( strcmp( codeForOperation, "HLT" ) == 0 ){
             fprintf( byteFile, "0\n" );
         }
+        else if( strcmp( *(stringFromFile.arrayOfStr + indexArray), "POPR RAX" ) == 0 ){
+            fprintf( byteFile, "42 0\n" );
+        }
+        else if( strcmp( *(stringFromFile.arrayOfStr + indexArray), "PUSHR RAX" ) == 0 ){
+            fprintf( byteFile, "33 0\n" );
+        }
+        else if( strcmp( *(stringFromFile.arrayOfStr + indexArray), "POPR RBX" ) == 0 ){
+            fprintf( byteFile, "42 1\n" );
+        }
+        else if( strcmp( *(stringFromFile.arrayOfStr + indexArray), "PUSHR RBX" ) == 0 ){
+            fprintf( byteFile, "33 1\n" );
+        }
+        else if( strcmp( *(stringFromFile.arrayOfStr + indexArray), "POPR RCX" ) == 0 ){
+            fprintf( byteFile, "42 2\n" );
+        }
+        else if( strcmp( *(stringFromFile.arrayOfStr + indexArray), "PUSHR RCX" ) == 0 ){
+            fprintf( byteFile, "33 2\n" );
+        }
+        else if( strcmp( *(stringFromFile.arrayOfStr + indexArray), "POPR RDX" ) == 0 ){
+            fprintf( byteFile, "42 3\n" );
+        }
+        else if( strcmp( *(stringFromFile.arrayOfStr + indexArray), "PUSHR RDX" ) == 0 ){
+            fprintf( byteFile, "33 3\n" );
+        }
 
         indexLine = 0;
     }

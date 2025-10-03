@@ -2,9 +2,10 @@
 #define H_SPULOOP
 
 #include "stack.h"
+#include "softProcessor.h"
 
 void SPULoop( stack_t *stk );
 
-void calculationFromProcessor( stack_t *stk );
+void calculationFromProcessor( Processor *SPU );
 
 #endif
