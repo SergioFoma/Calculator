@@ -66,12 +66,17 @@ void writeToFile( strInformation stringFromFile, FILE* byteFile ){
 
     for( ; indexArray < stringFromFile.arraySize; indexArray++ ){
 
-        getCommand( *(stringFromFile.arrayOfStr + indexArray), codeForOperation, &indexLine );
+        int number = 0;
+        char* lineInArray = *(stringFromFile.arrayOfStr + indexArray);
+        getCommand( lineInArray , codeForOperation, &indexLine );
 
         if( strcmp( codeForOperation, "PUSH" ) == 0 ){
             ++indexLine;
-            int number = atoi( *(stringFromFile.arrayOfStr + indexArray) + indexLine );
+            number = atoi( lineInArray + indexLine );
             fprintf( byteFile, "1 %d\n", number );
+        }
+        else if( strcmp( codeForOperation, "IN" ) == 0 ){
+            fprintf( byteFile, "9\n" );
         }
         else if( strcmp( codeForOperation, "MUL" ) == 0 ){
             fprintf( byteFile, "2\n" );
@@ -85,28 +90,28 @@ void writeToFile( strInformation stringFromFile, FILE* byteFile ){
         else if( strcmp( codeForOperation, "HLT" ) == 0 ){
             fprintf( byteFile, "0\n" );
         }
-        else if( strcmp( *(stringFromFile.arrayOfStr + indexArray), "POPR RAX" ) == 0 ){
+        else if( strcmp( lineInArray, "POPR RAX " ) == 0 ){
             fprintf( byteFile, "42 0\n" );
         }
-        else if( strcmp( *(stringFromFile.arrayOfStr + indexArray), "PUSHR RAX" ) == 0 ){
+        else if( strcmp( lineInArray, "PUSHR RAX " ) == 0 ){
             fprintf( byteFile, "33 0\n" );
         }
-        else if( strcmp( *(stringFromFile.arrayOfStr + indexArray), "POPR RBX" ) == 0 ){
+        else if( strcmp( lineInArray, "POPR RBX" ) == 0 ){
             fprintf( byteFile, "42 1\n" );
         }
-        else if( strcmp( *(stringFromFile.arrayOfStr + indexArray), "PUSHR RBX" ) == 0 ){
+        else if( strcmp( lineInArray, "PUSHR RBX" ) == 0 ){
             fprintf( byteFile, "33 1\n" );
         }
-        else if( strcmp( *(stringFromFile.arrayOfStr + indexArray), "POPR RCX" ) == 0 ){
+        else if( strcmp( lineInArray, "POPR RCX" ) == 0 ){
             fprintf( byteFile, "42 2\n" );
         }
-        else if( strcmp( *(stringFromFile.arrayOfStr + indexArray), "PUSHR RCX" ) == 0 ){
+        else if( strcmp( lineInArray, "PUSHR RCX" ) == 0 ){
             fprintf( byteFile, "33 2\n" );
         }
-        else if( strcmp( *(stringFromFile.arrayOfStr + indexArray), "POPR RDX" ) == 0 ){
+        else if( strcmp( lineInArray, "POPR RDX" ) == 0 ){
             fprintf( byteFile, "42 3\n" );
         }
-        else if( strcmp( *(stringFromFile.arrayOfStr + indexArray), "PUSHR RDX" ) == 0 ){
+        else if( strcmp( lineInArray, "PUSHR RDX" ) == 0 ){
             fprintf( byteFile, "33 3\n" );
         }
 

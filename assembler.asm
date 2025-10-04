@@ -8,17 +8,23 @@ MUL
 MUL
 SUB ; Do subtraction
 OUT ; Get result
+
 PUSH 10
 PUSH 20
 PUSH 30
 PUSH 40
 PUSH 50
-POPR RAX
-PUSHR RAX
+
+POPR RAX ; Put in regs
 POPR RDX
-PUSHR RDX
-POPR RCX
-PUSHR RCX
 POPR RBX
+POPR RCX
+
+PUSHR RAX ; from regs to stack
+PUSHR RDX
+PUSHR RCX
 PUSHR RBX
+
+IN
+
 HLT ; Stop

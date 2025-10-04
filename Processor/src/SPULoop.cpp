@@ -4,6 +4,7 @@
 
 #include "SPULoop.h"
 #include "softProcessor.h"
+#include "paint.h"
 
 void SPULoop( stack_t *stk ){
     int code = 0, command = 0, DO = 1;
@@ -113,6 +114,12 @@ void calculationFromProcessor( Processor *SPU ){
                 if( last >= 0 ){
                     printf("%d\n", (int)sqrt( last ) );
                 }
+                stackPrint( &(SPU->stk) );
+                break;
+            case 9:
+                colorPrintf( NOMODE, BLUE, "Enter number from keyboard: " );
+                scanf("%d", &first );
+                stackPush( &(SPU->stk), first );
                 stackPrint( &(SPU->stk) );
                 break;
             case 42:
