@@ -54,7 +54,7 @@ type stackPop( stack_t *stk ){
 void stackPrint( stack_t *stk ){
     STACK_OK( stk );
 
-    colorPrintf(NOMODE, GREEN, "\nstack: \n");
+    colorPrintf(NOMODE, GREEN, "\nSize stack now: %lu \nstack: \n", stk->size - 1);
     for( size_t index = 0; index < (stk->size) - 1; index++ ){
         colorPrintf(NOMODE, GREEN, "[%u] = %d ", index, (stk->data)[index+1] );
     }

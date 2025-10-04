@@ -5,8 +5,8 @@
 
 #include "onegin.h"
 #include "stack.h"
-#include "checkError.h"
 
+const size_t sizeOfRegs = 10;
 enum regsIndex {
     RAX = 0,
     RBX = 1,
@@ -31,7 +31,7 @@ struct Processor{
     stack_t stk;
     Code code;
     size_t instructionPointer;
-    int regs[10];
+    int regs[ sizeOfRegs ];
     regsIndex indexForRegister;
     processorError spuErr;
 };
@@ -44,7 +44,7 @@ void processorInit( Processor* SPU );
 
 void processorDestroy( Processor* SPU );
 
-processorError processorVerify( Processor* SPU );
+void regsPrint( Processor* SPU );
 
 
 #endif

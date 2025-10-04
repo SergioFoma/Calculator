@@ -67,7 +67,7 @@ void calculationFromProcessor( Processor *SPU ){
 
     softProcessor( "BYTE-CODE.txt", SPU );
     size_t index = 0;
-    int first = 0, last = 0, DO = 1;
+    int first = 0, last = 0, indexOfRegister = 0, DO = 1;
 
     while( index < (SPU->code).sizeOfCommands && DO ){
         switch( (SPU->code).command[ index ] ){
@@ -114,6 +114,19 @@ void calculationFromProcessor( Processor *SPU ){
                     printf("%d\n", (int)sqrt( last ) );
                 }
                 stackPrint( &(SPU->stk) );
+                break;
+            case 42:
+                last = stackPop( &(SPU->stk) );
+                indexOfRegister = (SPU->code).command[ ++index ];
+                (SPU->regs)[ indexOfRegister ] = last;
+                stackPrint( &(SPU->stk) );
+                regsPrint( SPU );
+                break;
+            case 33:
+                indexOfRegister = (SPU->code).command[ ++index ];
+                stackPush( &(SPU->stk), (SPU->regs)[ indexOfRegister ] );
+                stackPrint( &(SPU->stk) );
+                regsPrint( SPU );
                 break;
         }
         ++index;

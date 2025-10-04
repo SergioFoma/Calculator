@@ -1,6 +1,7 @@
 #include <string.h>
 
 #include "softProcessor.h"
+#include "checkError.h"
 #include "paint.h"
 
 void processorInit( Processor* SPU ){
@@ -14,10 +15,7 @@ void processorInit( Processor* SPU ){
 }
 
 void softProcessor( const char* nameOfByteFile, Processor* SPU ){
-    if( processorVerify( SPU ) != CORRECT_SPU ){
-        colorPrintf(NOMODE, RED, "Error of verify SPU :%s %s %d\n", __FILE__, __func__, __LINE__ );
-        return ;
-    }
+    SPU_OK( SPU );
 
     FILE* byteFile = fopen( nameOfByteFile, "r" );
 
@@ -48,11 +46,8 @@ void softProcessor( const char* nameOfByteFile, Processor* SPU ){
 }
 
 
-void getArrayWithCommand( strInformation stringFromFile, Processor *SPU ){
-    if( processorVerify( SPU ) != CORRECT_SPU ){
-        colorPrintf(NOMODE, RED, "Error of verify SPU :%s %s %d\n", __FILE__, __func__, __LINE__ );
-        return ;
-    }
+void getArrayWithCommand( strInformation stringFromFile, Processor* SPU ){
+    SPU_OK( SPU );
 
     int** arrayWithCommand = &( (SPU->code).command );
     size_t* sizeCommands = &( (SPU->code).sizeOfCommands );
@@ -94,15 +89,12 @@ void processorDestroy( Processor* SPU ){
     SPU->spuErr = SPU_DESTROY;
 }
 
-processorError processorVerify( Processor *SPU ){
+void regsPrint( Processor* SPU ){
+    SPU_OK( SPU );
 
-    if( stackVerify( &(SPU->stk) )  != CORRECT ){
-        return STACK_ERROR;
+    colorPrintf(NOMODE, YELLOW, "regs:\n");
+    for( size_t index = 0; index < sizeOfRegs; index++ ){
+        colorPrintf(NOMODE, YELLOW, "[ %lu ] = %d ", index, (SPU->regs)[index] );
     }
-
-    if( SPU->spuErr != CORRECT_SPU ){
-        return (SPU->spuErr );
-    }
-
-    return CORRECT_SPU;
+    printf("\n");
 }

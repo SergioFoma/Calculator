@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "stack.h"
+#include "softProcessor.h"
 #include "checkError.h"
 
 const int poison = 765911;
@@ -84,4 +85,17 @@ void stackDump( const char* file, const char* func, int line, stack_t *stk ){
     fclose( fileForDump );
 
     return ;
+}
+
+processorError processorVerify( Processor* SPU ){
+
+    if( stackVerify( &(SPU->stk) )  != CORRECT ){
+        return STACK_ERROR;
+    }
+
+    if( SPU->spuErr != CORRECT_SPU ){
+        return (SPU->spuErr );
+    }
+
+    return CORRECT_SPU;
 }
