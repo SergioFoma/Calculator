@@ -9,6 +9,7 @@
 void stackDump( const char* file, const char* func, int line, stack_t *stk );
 stackErr_t stackVerify( stack_t *stk );
 
+void processorDump( const char* file, const char* func, int line, Processor *SPU );
 processorError processorVerify( Processor* SPU );
 
 #define STACK_OK( stk )                                              \
@@ -23,7 +24,7 @@ processorError processorVerify( Processor* SPU );
 #define SPU_OK( SPU )                                                                               \
     do{                                                                                             \
         if( processorVerify( SPU ) != CORRECT_SPU ){                                                \
-            printf("Error of stack verify :%s %s %d", __FILE__, __func__, __LINE__ );               \
+            ( processorDump( __FILE__, __func__, __LINE__, SPU ) );                                 \
             return ;                                                                                \
         }                                                                                           \
     }while( false )

@@ -98,3 +98,19 @@ void regsPrint( Processor* SPU ){
     }
     printf("\n");
 }
+
+regsIndex getIndexRegs( int codeForRegister ){
+    switch( codeForRegister ){
+        case 0:
+            return RAX;
+        case 1:
+            return RBX;
+        case 2:
+            return RCX;
+        case 3:
+            return RDX;
+        default:
+            colorPrintf( NOMODE, RED, "\n\nThe wrong register in selected\n\n" );
+            exit( 0 );
+    }
+}

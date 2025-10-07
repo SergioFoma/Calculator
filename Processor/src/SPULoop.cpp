@@ -5,6 +5,7 @@
 #include "SPULoop.h"
 #include "softProcessor.h"
 #include "paint.h"
+#include "checkError.h"
 
 void SPULoop( stack_t *stk ){
     int code = 0, command = 0, DO = 1;
@@ -65,75 +66,47 @@ void SPULoop( stack_t *stk ){
 }
 
 void calculationFromProcessor( Processor *SPU ){
+    SPU_OK( SPU );
 
     softProcessor( "BYTE-CODE.txt", SPU );
     size_t index = 0;
     int first = 0, last = 0, indexOfRegister = 0, DO = 1;
 
     while( index < (SPU->code).sizeOfCommands && DO ){
+        SPU->instructionPointer = index;
         switch( (SPU->code).command[ index ] ){
             case 0:
                 DO = 0;
                 break;
             case 1:
-                stackPush( &(SPU->stk), (SPU->code).command[ ++index ] );
-                stackPrint( &(SPU->stk) );
+                DO_PUSH;
                 break;
             case 2:
-                last = stackPop( &(SPU->stk) );
-                first = stackPop( &(SPU->stk) );
-                stackPush( &(SPU->stk), first * last );
-                stackPrint( &(SPU->stk) );
+                DO_MUL;
                 break;
             case 3:
-                last = stackPop( &(SPU->stk) );
-                first = stackPop( &(SPU->stk) );
-                stackPush( &(SPU->stk), first - last );
-                stackPrint( &(SPU->stk) );
+                DO_SUB;
                 break;
             case 4:
-                printf("%d\n", stackPop( &(SPU->stk ) ) );
-                stackPrint( &(SPU->stk) );
+                DO_OUT;
                 break;
             case 5:
-                last = stackPop( &(SPU->stk) );
-                first = stackPop( &(SPU->stk) );
-                stackPush( &(SPU->stk) , first + last );
-                stackPrint( &(SPU->stk) );
+                DO_ADD;
                 break;
             case 6:
-                last = stackPop( &(SPU->stk) );
-                first = stackPop( &(SPU->stk) );
-                if ( last != 0 ){
-                    stackPush( &(SPU->stk), first / last );
-                }
-                stackPrint( &(SPU->stk) );
+                DO_DIV;
                 break;
             case 7:
-                last = stackPop( &(SPU->stk) );
-                if( last >= 0 ){
-                    printf("%d\n", (int)sqrt( last ) );
-                }
-                stackPrint( &(SPU->stk) );
+                DO_SQRT;
                 break;
             case 9:
-                colorPrintf( NOMODE, BLUE, "Enter number from keyboard: " );
-                scanf("%d", &first );
-                stackPush( &(SPU->stk), first );
-                stackPrint( &(SPU->stk) );
+                DO_IN;
                 break;
             case 42:
-                last = stackPop( &(SPU->stk) );
-                indexOfRegister = (SPU->code).command[ ++index ];
-                (SPU->regs)[ indexOfRegister ] = last;
-                stackPrint( &(SPU->stk) );
-                regsPrint( SPU );
+                DO_POPR;
                 break;
             case 33:
-                indexOfRegister = (SPU->code).command[ ++index ];
-                stackPush( &(SPU->stk), (SPU->regs)[ indexOfRegister ] );
-                stackPrint( &(SPU->stk) );
-                regsPrint( SPU );
+                DO_PUSHR;
                 break;
         }
         ++index;

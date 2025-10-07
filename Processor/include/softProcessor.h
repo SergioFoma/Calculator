@@ -7,11 +7,13 @@
 #include "stack.h"
 
 const size_t sizeOfRegs = 10;
+
 enum regsIndex {
-    RAX = 0,
-    RBX = 1,
-    RCX = 2,
-    RDX = 3
+    RAX             = 0,
+    RBX             = 1,
+    RCX             = 2,
+    RDX             = 3,
+    NOT_IDENTIFIED  = 9
 };
 
 enum processorError {
@@ -20,6 +22,7 @@ enum processorError {
     CODE_NULL_PTR  = 2,
     REGS_NULL_PTR  = 3,
     SPU_DESTROY    = 4,
+    SPU_NULL_PTR   = 5
 };
 
 struct Code {
@@ -46,5 +49,6 @@ void processorDestroy( Processor* SPU );
 
 void regsPrint( Processor* SPU );
 
+regsIndex getIndexRegs( int codeForRegister );
 
 #endif
