@@ -10,27 +10,43 @@ FLAGS = -Wshadow -Winit-self -Wredundant-decls -Wcast-align \
 	-Wnon-virtual-dtor -Woverloaded-virtual -Wpointer-arith -Wsign-promo -Wstack-usage=8192 -Wstrict-aliasing\
 	-Wstrict-null-sentinel -Wtype-limits -Wwrite-strings -Werror=vla -D_DEBUG -D_EJUDGE_CLIENT_SIDE
 
-FOLDER_NAME = Processor
-SOURCES = main.cpp stack.cpp checkError.cpp paint.cpp SPULoop.cpp onegin.cpp softProcessor.cpp
+SPU_FOLDER_NAME = Processor
+SPU_EXE_NAME = $(addprefix $(SPU_FOLDER_NAME)/, $(BUILD_DIR) )/Result.exe  # Processor/Build/Result.exe
+SPU_SOURCES = main.cpp stack.cpp checkError.cpp paint.cpp SPULoop.cpp onegin.cpp softProcessor.cpp
+SPU_OBJECTS = $(SPU_SOURCES:.cpp=.obj)
 
-EXE_NAME = $(addprefix $(FOLDER_NAME)/, $(BUILD_DIR) )/Result.exe  # Processor/Build/Result.exe
+ASM_FOLDER_NAME = ASM
+ASM_EXE_NAME = $(addprefix $(ASM_FOLDER_NAME)/, $(BUILD_DIR) )/Result.exe
+ASM_SOURCES = main.cpp paint.cpp assembleCode.cpp onegin.cpp
+ASM_OBJECTS = $(ASM_SOURCES:.cpp=.obj)
 
-OBJECTS = $(SOURCES:.cpp=.obj)
-
-OBJECTS_IN_SOURCE = $(addprefix $(FOLDER_NAME)/src/, $(OBJECTS))  # Processor/src/main.obj
+SPU_OBJECTS_IN_SOURCE = $(addprefix $(SPU_FOLDER_NAME)/src/, $(SPU_OBJECTS))  # Processor/src/main.obj
+ASM_OBJECTS_IN_SOURCE = $(addprefix $(ASM_FOLDER_NAME)/src/, $(ASM_OBJECTS))  # ASM/src/main.obj
 
 .PHONY: all clean
 
-all: $(EXE_NAME)
+all: $(SPU_EXE_NAME) $(ASM_EXE_NAME)
 
-$(EXE_NAME): makeBuild $(OBJECTS_IN_SOURCE)
-	$(CXX) $(FLAGS) $(addprefix $(FOLDER_NAME)/$(BUILD_DIR)/, $(OBJECTS_IN_SOURCE)) -o $(EXE_NAME)
+############################# SPU #################################################################
+$(SPU_EXE_NAME): SPU_makeBuild $(SPU_OBJECTS_IN_SOURCE)
+	$(CXX) $(FLAGS) $(addprefix $(SPU_FOLDER_NAME)/$(BUILD_DIR)/, $(SPU_OBJECTS_IN_SOURCE)) -o $(SPU_EXE_NAME)
 
-$(OBJECTS_IN_SOURCE) : %.obj: %.cpp
-	$(CXX) $(FLAGS) -I ./$(FOLDER_NAME)/include -c ./$^ -o ./$(FOLDER_NAME)/$(BUILD_DIR)/$@
+$(SPU_OBJECTS_IN_SOURCE) : %.obj: %.cpp
+	$(CXX) $(FLAGS) -I ./$(SPU_FOLDER_NAME)/include -c ./$^ -o ./$(SPU_FOLDER_NAME)/$(BUILD_DIR)/$@
 
-makeBuild:
-	mkdir -p ./$(FOLDER_NAME)/$(BUILD_DIR)/$(FOLDER_NAME)/src
+##################################  ASM	 ###################################################################
+$(ASM_EXE_NAME): ASM_makeBuild $(ASM_OBJECTS_IN_SOURCE)
+	$(CXX) $(FLAGS) $(addprefix $(ASM_FOLDER_NAME)/$(BUILD_DIR)/, $(ASM_OBJECTS_IN_SOURCE)) -o $(ASM_EXE_NAME)
+
+$(ASM_OBJECTS_IN_SOURCE) : %.obj: %.cpp
+	$(CXX) $(FLAGS) -I ./$(ASM_FOLDER_NAME)/include -c ./$^ -o ./$(ASM_FOLDER_NAME)/$(BUILD_DIR)/$@
+
+##############################################################################################################
+
+SPU_makeBuild:
+	mkdir -p ./$(SPU_FOLDER_NAME)/$(BUILD_DIR)/$(SPU_FOLDER_NAME)/src
+ASM_makeBuild:
+	mkdir -p ./$(ASM_FOLDER_NAME)/$(BUILD_DIR)/$(ASM_FOLDER_NAME)/src
 clean:
 	rm -rf ./Processor/$(BUILD_DIR)
 	rm -rf ./ASM/$(BUILD_DIR)
