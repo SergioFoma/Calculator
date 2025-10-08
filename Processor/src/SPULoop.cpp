@@ -8,110 +8,54 @@
 #include "checkError.h"
 #include "solver.h"
 
-void SPULoop( stack_t *stk ){
-    int code = 0, command = 0, DO = 1;
-    type first = 0, last = 0;
-    while( DO ){
-
-        if ( scanf("%d", &code ) != 1){
-            continue;
-        }
-        switch( code ){
-            case 1:
-                scanf("%d", &command );
-                stackPush( stk, command );
-                stackPrint( stk );
-                break;
-            case 5:
-                last = stackPop( stk );
-                first = stackPop( stk );
-                stackPush( stk, first + last );
-                stackPrint( stk );
-                break;
-            case 3:
-                last = stackPop( stk );
-                first = stackPop( stk );
-                stackPush( stk, first - last );
-                stackPrint( stk );
-                break;
-            case 6:
-                last = stackPop( stk );
-                first = stackPop( stk );
-                if ( last != 0 ){
-                    stackPush( stk, first / last );
-                }
-                stackPrint( stk );
-                break;
-            case 2:
-                last = stackPop( stk );
-                first = stackPop( stk );
-                stackPush( stk, last * first );
-                stackPrint( stk );
-                break;
-            case 4:
-                printf("%d\n", stackPop( stk ) );
-                stackPrint( stk );
-                break;
-            case 7:
-                last = stackPop( stk );
-                if( last >= 0 ){
-                    printf("%d\n", (int)sqrt( last ) );
-                }
-                stackPrint( stk );
-                break;
-            case 0:
-                DO = 0;
-                break;
-        }
-    }
-}
-
-void calculationFromProcessor( Processor *SPU ){
+void calculationFromProcessor( Processor *SPU, const char* byteFile ){
     SPU_OK( SPU );
-
-    softProcessor( "BYTE-CODE.txt", SPU );
+    
+    softProcessor( byteFile, SPU );
     size_t index = 0;
     int first = 0, last = 0, indexOfRegister = 0, DO = 1;
 
     while( index < (SPU->code).sizeOfCommands && DO ){
         SPU->instructionPointer = index;
         switch( (SPU->code).command[ index ] ){
-            case 0:
+            case HLT:
                 DO = 0;
                 break;
-            case 1:
+            case PUSH:
                 DO_PUSH;
                 break;
-            case 2:
+            case MUL:
                 DO_MUL;
                 break;
-            case 3:
+            case SUB:
                 DO_SUB;
                 break;
-            case 4:
+            case OUT:
                 DO_OUT;
                 break;
-            case 5:
+            case ADD:
                 DO_ADD;
                 break;
-            case 6:
+            case DIV:
                 DO_DIV;
                 break;
-            case 7:
+            case SQRT:
                 DO_SQRT;
                 break;
-            case 9:
+            case IN:
                 DO_IN;
                 break;
-            case 10:{
+            case SOLVER:{
                 DO_SOLVE_EQUATION;
                 break;
             }
-            case 42:
+            case POPR:
                 DO_POPR;
                 break;
-            case 33:
+            case PUSHR:
                 DO_PUSHR;
+                break;
+            default:
                 break;
         }
         ++index;

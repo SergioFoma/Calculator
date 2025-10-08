@@ -8,7 +8,7 @@
 #include "paint.h"
 
 
-void assemble( const char* fileForAsm, const char* fileForByteCode ){
+typeOfErr assemble( const char* fileForAsm, const char* fileForByteCode ){
     FILE* asmFile = fopen( fileForAsm, "r");
 
     bufferInformation bufferFromFile = {};
@@ -16,33 +16,37 @@ void assemble( const char* fileForAsm, const char* fileForByteCode ){
 
     errorCode bufferError = initBufferInformation( &bufferFromFile, asmFile );
     if( bufferError != correct ){
-        colorPrintf(NOMODE, RED, "Error of init buffer struct :%s %s %d\n", __FILE__, __func__, __LINE__ );
-        return ;
+        return INIT_BUFFER_ERROR;
     }
 
     errorCode stringError = initStringInformation( &stringFromFile );
     if( stringError != correct ){
-        colorPrintf(NOMODE, RED, "Error of init string struct :%s %s %d\n", __FILE__, __func__, __LINE__ );
-        return ;
+        return INIT_STRING_ERROR;
     }
 
     if ( !splitToLines( &bufferFromFile, &stringFromFile, asmFile ) ){
-        colorPrintf( NOMODE, RED, "Error of spit lines :%s %s %d\n", __FILE__, __func__, __LINE__ );
-        return ;
+        return SPLIT_LINES_ERROR;
     }
+    fclose( asmFile );
 
     FILE* byteFile = fopen( fileForByteCode, "a" );
+    if( byteFile == NULL ){
+        return BYTE_FILE_ERROR;
+    }
 
-    writeToFile( stringFromFile, byteFile );
-
-    fclose( asmFile );
+    typeOfErr codeOfError = writeToFile( stringFromFile, byteFile );
+    if( codeOfError != OK ){
+        return COMMAND_ERROR;
+    }
     fclose( byteFile );
+
+    return OK;
 }
 
-void getCommand( char* lineFromFile, char* codeForOperation, size_t* indexLine ){
+void parseCommandName( char* lineFromFile, char* codeForOperation, size_t* whitespaceIndex ){
     assert( lineFromFile != NULL );
     assert( codeForOperation != NULL );
-    assert( indexLine != NULL );
+    assert( whitespaceIndex != NULL );
 
     char* getIndexOfComment = strchr( lineFromFile, ';' );
     if( getIndexOfComment != NULL ){
@@ -51,28 +55,28 @@ void getCommand( char* lineFromFile, char* codeForOperation, size_t* indexLine )
 
     size_t sizeLine = strlen( lineFromFile );
 
-    while( lineFromFile[ *indexLine ] != ' ' && *indexLine < sizeLine ){
-        codeForOperation[ *indexLine ] = lineFromFile[ *indexLine ];
-        ++(*indexLine);
+    while( lineFromFile[ *whitespaceIndex ] != ' ' && *whitespaceIndex < sizeLine ){
+        codeForOperation[ *whitespaceIndex ] = lineFromFile[ *whitespaceIndex ];
+        ++(*whitespaceIndex);
     }
-    codeForOperation[ *indexLine ] = '\0';
+    codeForOperation[ *whitespaceIndex ] = '\0';
 }
 
-void writeToFile( strInformation stringFromFile, FILE* byteFile ){
+typeOfErr writeToFile( strInformation stringFromFile, FILE* byteFile ){
     assert( byteFile != NULL );
 
     char codeForOperation[ lenOfCommand ] = "\0";
-    size_t indexLine = 0, indexArray = 0;
+    size_t whitespaceIndex = 0, indexArray = 0, countOfCommand = 0;
 
     for( ; indexArray < stringFromFile.arraySize; indexArray++ ){
 
         int number = 0;
         char* lineInArray = *(stringFromFile.arrayOfStr + indexArray);
-        getCommand( lineInArray , codeForOperation, &indexLine );
+        parseCommandName( lineInArray , codeForOperation, &whitespaceIndex );
 
         if( strcmp( codeForOperation, "PUSH" ) == 0 ){
-            ++indexLine;
-            number = atoi( lineInArray + indexLine );
+            ++whitespaceIndex;
+            number = atoi( lineInArray + whitespaceIndex );
             fprintf( byteFile, "1 %d\n", number );
         }
         else if( strcmp( codeForOperation, "IN" ) == 0 ){
@@ -117,8 +121,13 @@ void writeToFile( strInformation stringFromFile, FILE* byteFile ){
         else if( strcmp( lineInArray, "SOLVE EQUATION" ) == 0 ){
             fprintf( byteFile, "10\n" );
         }
-
-        indexLine = 0;
+        else if( strlen( lineInArray) > 0 ){
+            colorPrintf( NOMODE, RED, "\nUnidentified command in ASM File :%s %s %d\n", __FILE__, __func__, __LINE__ );
+            return COMMAND_ERROR;
+        }
+        whitespaceIndex = 0;
     }
+
+    return OK;
 
 }

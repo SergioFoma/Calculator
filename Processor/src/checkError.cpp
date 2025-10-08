@@ -153,7 +153,7 @@ void processorDump( const char* file, const char* func, int line, Processor *SPU
         fprintf( fileForSPU, "[%lu] = %d ", index, ( (SPU->code).command )[index] );
     }
 
-    fprintf( fileForSPU, "\nInstruction Pointer = %d\n", SPU->instructionPointer );
+    fprintf( fileForSPU, "\nInstruction Pointer = %ld\n", SPU->instructionPointer );
 
     fprintf( fileForSPU, "\nPrint element in regs: \n" );
     for( index = 0; index < sizeOfRegs; index++ ){

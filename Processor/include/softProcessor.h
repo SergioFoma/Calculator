@@ -49,6 +49,4 @@ void processorDestroy( Processor* SPU );
 
 void regsPrint( Processor* SPU );
 
-regsIndex getIndexRegs( int codeForRegister );
-
 #endif

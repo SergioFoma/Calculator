@@ -7,10 +7,20 @@
 
 const size_t lenOfCommand = 20;
 
-void assemble( const char* fileForAsm, const char* fileForByteCode );
+enum typeOfErr {
+    OK                 = 0,
+    COMMAND_ERROR      = 1,
+    BYTE_FILE_ERROR    = 2,
+    SPLIT_LINES_ERROR  = 3,
+    INIT_STRING_ERROR  = 4,
+    INIT_BUFFER_ERROR  = 5,
 
-void getCommand( char* lineFromFile, char* codeForOperation, size_t* indexLine );
+};
 
-void writeToFile( strInformation stringFromFile, FILE* byteFile );
+typeOfErr assemble( const char* fileForAsm, const char* fileForByteCode );
+
+void parseCommandName( char* lineFromFile, char* codeForOperation, size_t* indexLine );
+
+typeOfErr writeToFile( strInformation stringFromFile, FILE* byteFile );
 
 #endif

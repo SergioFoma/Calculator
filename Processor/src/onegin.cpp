@@ -112,7 +112,7 @@ void getOriginalText( bufferInformation *bufferFromFile ){
 
 
 void destroyBufferInformation( bufferInformation *bufferFromFile ){
-    free( bufferFromFile );
+    free( bufferFromFile->buffer );
     bufferFromFile->buffer = NULL;
     bufferFromFile->bufferSize = -1;
     bufferFromFile->fileSize = -1;
@@ -120,7 +120,7 @@ void destroyBufferInformation( bufferInformation *bufferFromFile ){
 }
 
 void destroyStringInformation( strInformation *stringFromFile ){
-    free( stringFromFile );
+    free( stringFromFile->arrayOfStr );
     stringFromFile->arrayOfStr = NULL;
     stringFromFile->arraySize = -1;
     stringFromFile = NULL;

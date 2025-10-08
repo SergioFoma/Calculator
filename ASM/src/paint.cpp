@@ -74,7 +74,6 @@ void colorPrintf( Styles style, Colors color,  const char* line ... ) {
 int printfError_(const char* file, const char* function, int line, const char* lineForError ...){
     assert( file != NULL );
     assert( function != NULL );
-    assert( line != NULL );
     assert( lineForError != NULL );
 
     va_list args; // ��������� ���������

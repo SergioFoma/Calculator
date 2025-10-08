@@ -4,19 +4,35 @@
 #include "stack.h"
 #include "softProcessor.h"
 
+enum doCommand {
+    HLT         = 0,
+    PUSH        = 1,
+    MUL         = 2,
+    SUB         = 3,
+    OUT         = 4,
+    ADD         = 5,
+    DIV         = 6,
+    SQRT        = 7,
+    IN          = 9,
+    SOLVER      = 10,
+    POPR        = 42,
+    PUSHR       = 33
+};
+
 void SPULoop( stack_t *stk );
 
-void calculationFromProcessor( Processor *SPU );
+void calculationFromProcessor( Processor *SPU, const char* byteFile );
 
 #define DO_PUSH                                                           \
     stackPush( &(SPU->stk), (SPU->code).command[ ++index ] );             \
     stackPrint( &(SPU->stk) );
 
+// TODO use functions instead of macros
 #define DO_MUL                                                      \
     last = stackPop( &(SPU->stk) );                                 \
     first = stackPop( &(SPU->stk) );                                \
     stackPush( &(SPU->stk), first * last );                         \
-    stackPrint( &(SPU->stk) );
+    stackPrint( &(SPU->stk) ); // TODO make single macro for sub, div, add, mul
 
 #define DO_SUB                                                      \
     last = stackPop( &(SPU->stk) );                                 \
@@ -59,13 +75,13 @@ void calculationFromProcessor( Processor *SPU );
     last = stackPop( &(SPU->stk) );                                 \
     indexOfRegister = (SPU->code).command[ ++index ];               \
     (SPU->regs)[ indexOfRegister ] = last;                          \
-    (SPU->indexForRegister) = getIndexRegs( indexOfRegister );      \
+    (SPU->indexForRegister) = (regsIndex)indexOfRegister;           \
     stackPrint( &(SPU->stk) );                                      \
     regsPrint( SPU );
 
 #define DO_PUSHR                                                    \
     indexOfRegister = (SPU->code).command[ ++index ];               \
-    SPU->indexForRegister = getIndexRegs( indexOfRegister );        \
+    SPU->indexForRegister = (regsIndex)( indexOfRegister );         \
     stackPush( &(SPU->stk), (SPU->regs)[ indexOfRegister ] );       \
     stackPrint( &(SPU->stk) );                                      \
     regsPrint( SPU );

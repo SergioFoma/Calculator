@@ -8,14 +8,14 @@
 #include "SPULoop.h"
 #include "softProcessor.h"
 
-int main(int* argc, char** argv){
+int main(int argc, char** argv){
 
     Processor SPU = {};
 
     processorInit( &SPU );
 
     if( strcmp( argv[1], "--softProcessor" ) == 0 ){
-        calculationFromProcessor( &SPU );
+        calculationFromProcessor( &SPU, argv[2] );
     }
 
     processorDestroy( &SPU );
