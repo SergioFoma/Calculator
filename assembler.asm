@@ -27,4 +27,6 @@ PUSHR RBX
 
 IN
 
+SOLVE EQUATION
+
 HLT ; Stop

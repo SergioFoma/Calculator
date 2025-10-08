@@ -114,6 +114,9 @@ void writeToFile( strInformation stringFromFile, FILE* byteFile ){
         else if( strcmp( lineInArray, "PUSHR RDX" ) == 0 ){
             fprintf( byteFile, "33 3\n" );
         }
+        else if( strcmp( lineInArray, "SOLVE EQUATION" ) == 0 ){
+            fprintf( byteFile, "10\n" );
+        }
 
         indexLine = 0;
     }

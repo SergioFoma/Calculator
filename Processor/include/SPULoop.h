@@ -70,4 +70,10 @@ void calculationFromProcessor( Processor *SPU );
     stackPrint( &(SPU->stk) );                                      \
     regsPrint( SPU );
 
+#define DO_SOLVE_EQUATION                                           \
+    Coefficients coefficients = {1, -2, -8};                        \
+    SolveResult answer = { NAN, NAN, zeroRoot};                     \
+    solveEquation( coefficients, &answer );                         \
+    printResult( coefficients, answer );
+
 #endif

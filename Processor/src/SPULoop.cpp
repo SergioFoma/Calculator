@@ -6,6 +6,7 @@
 #include "softProcessor.h"
 #include "paint.h"
 #include "checkError.h"
+#include "solver.h"
 
 void SPULoop( stack_t *stk ){
     int code = 0, command = 0, DO = 1;
@@ -102,6 +103,10 @@ void calculationFromProcessor( Processor *SPU ){
             case 9:
                 DO_IN;
                 break;
+            case 10:{
+                DO_SOLVE_EQUATION;
+                break;
+            }
             case 42:
                 DO_POPR;
                 break;
