@@ -7,6 +7,23 @@
 #include "onegin.h"
 #include "paint.h"
 
+commandInformation arrayWithAssembleCommand[] = {
+    { "PUSH", "1", ASM_PUSH },
+    { "IN", "9",  ASM_FPRINTF },
+    { "MUL", "2", ASM_FPRINTF },
+    { "SUB", "3", ASM_FPRINTF },
+    { "OUT", "4", ASM_FPRINTF },
+    { "HLT", "0",   ASM_FPRINTF },
+    { "POPR RAX ", "42 0",   ASM_FPRINTF },
+    { "PUSHR RAX ", "33 0",  ASM_FPRINTF },
+    { "POPR RBX", "42 1",  ASM_FPRINTF },
+    { "PUSHR RBX", "33 1",   ASM_FPRINTF },
+    { "POPR RCX", "42 2",   ASM_FPRINTF },
+    { "PUSHR RCX", "33 2",   ASM_FPRINTF },
+    { "POPR RDX", "42 3",   ASM_FPRINTF },
+    { "PUSHR RDX", "33 3",   ASM_FPRINTF },
+    { "SOLVE EQUATION", "10",   ASM_FPRINTF }
+};
 
 typeOfErr assemble( const char* fileForAsm, const char* fileForByteCode ){
     FILE* asmFile = fopen( fileForAsm, "r");
@@ -70,64 +87,46 @@ typeOfErr writeToFile( strInformation stringFromFile, FILE* byteFile ){
 
     for( ; indexArray < stringFromFile.arraySize; indexArray++ ){
 
-        int number = 0;
+        bool flag = false;
         char* lineInArray = *(stringFromFile.arrayOfStr + indexArray);
         parseCommandName( lineInArray , codeForOperation, &whitespaceIndex );
 
-        if( strcmp( codeForOperation, "PUSH" ) == 0 ){
-            ++whitespaceIndex;
-            number = atoi( lineInArray + whitespaceIndex );
-            fprintf( byteFile, "1 %d\n", number );
+        for( size_t indexASMArray = 0; indexASMArray < 15; indexASMArray++ ){
+            if( strcmp( codeForOperation, (arrayWithAssembleCommand[ indexASMArray]).firstArg ) == 0 &&
+                indexASMArray == 0 ){
+                (arrayWithAssembleCommand[ indexASMArray ] ).func( byteFile, (arrayWithAssembleCommand[ indexASMArray]).intFirstArg,
+                                                                   whitespaceIndex, lineInArray );
+                flag = true;
+                break;
+            }
+            else if( strcmp( codeForOperation, (arrayWithAssembleCommand[ indexASMArray]).firstArg ) == 0 ||
+                     strcmp( lineInArray, (arrayWithAssembleCommand[ indexASMArray]).firstArg ) == 0){
+                (arrayWithAssembleCommand[ indexASMArray ] ).func( byteFile, (arrayWithAssembleCommand[ indexASMArray]).intFirstArg,
+                                                                   0, "");
+                flag = true;
+                break;
+            }
         }
-        else if( strcmp( codeForOperation, "IN" ) == 0 ){
-            fprintf( byteFile, "9\n" );
-        }
-        else if( strcmp( codeForOperation, "MUL" ) == 0 ){
-            fprintf( byteFile, "2\n" );
-        }
-        else if( strcmp( codeForOperation, "SUB" ) == 0 ){
-            fprintf( byteFile, "3\n" );
-        }
-        else if( strcmp( codeForOperation, "OUT" ) == 0 ){
-            fprintf( byteFile, "4\n" );
-        }
-        else if( strcmp( codeForOperation, "HLT" ) == 0 ){
-            fprintf( byteFile, "0\n" );
-        }
-        else if( strcmp( lineInArray, "POPR RAX " ) == 0 ){
-            fprintf( byteFile, "42 0\n" );
-        }
-        else if( strcmp( lineInArray, "PUSHR RAX " ) == 0 ){
-            fprintf( byteFile, "33 0\n" );
-        }
-        else if( strcmp( lineInArray, "POPR RBX" ) == 0 ){
-            fprintf( byteFile, "42 1\n" );
-        }
-        else if( strcmp( lineInArray, "PUSHR RBX" ) == 0 ){
-            fprintf( byteFile, "33 1\n" );
-        }
-        else if( strcmp( lineInArray, "POPR RCX" ) == 0 ){
-            fprintf( byteFile, "42 2\n" );
-        }
-        else if( strcmp( lineInArray, "PUSHR RCX" ) == 0 ){
-            fprintf( byteFile, "33 2\n" );
-        }
-        else if( strcmp( lineInArray, "POPR RDX" ) == 0 ){
-            fprintf( byteFile, "42 3\n" );
-        }
-        else if( strcmp( lineInArray, "PUSHR RDX" ) == 0 ){
-            fprintf( byteFile, "33 3\n" );
-        }
-        else if( strcmp( lineInArray, "SOLVE EQUATION" ) == 0 ){
-            fprintf( byteFile, "10\n" );
-        }
-        else if( strlen( lineInArray) > 0 ){
-            colorPrintf( NOMODE, RED, "\nUnidentified command in ASM File :%s %s %d\n", __FILE__, __func__, __LINE__ );
+
+        if( flag == false && strlen( lineInArray ) > 0 ){
+            colorPrintf( NOMODE, RED, "\nUnidentified command in ASM File :%s %s %d\n%s %d\n", __FILE__, __func__, __LINE__ , lineInArray,strlen( lineInArray ));
             return COMMAND_ERROR;
         }
+
         whitespaceIndex = 0;
     }
 
     return OK;
 
+}
+
+void ASM_PUSH( FILE* byteFile,  const char* intFirstArg,
+               size_t whitespaceIndex, char* lineInArray){
+    ++whitespaceIndex;
+    int number = atoi( lineInArray + whitespaceIndex );
+    fprintf( byteFile, "%s %d\n", intFirstArg, number );
+}
+void ASM_FPRINTF( FILE* byteFile,  const char* intFirstArg,
+                  size_t whitespaceIndex, char* lineInArray){
+    fprintf( byteFile, "%s\n", intFirstArg);
 }

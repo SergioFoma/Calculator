@@ -17,6 +17,21 @@ enum typeOfErr {
 
 };
 
+void ASM_PUSH( FILE* byteFile,  const char* intFirstArg,
+               size_t whitespaceIndex = 0, char* lineInArray = "\0");
+
+void ASM_FPRINTF( FILE* byteFile,  const char* intFirstArg,
+               size_t whitespaceIndex = 0, char* lineInArray = "\0");
+
+struct commandInformation {
+    const char* firstArg;
+    const char* intFirstArg;
+    void ( *func )( FILE* byteFile,  const char* intFirstArg,
+                    size_t whitespaceIndex , char* lineInArray );
+};
+
+//size_t sizeArrayWithASMCommand = sizeof( arrayWithAssembleCommand ) / sizeof( arrayWithAssembleCommand[ 0 ] );
+
 typeOfErr assemble( const char* fileForAsm, const char* fileForByteCode );
 
 void parseCommandName( char* lineFromFile, char* codeForOperation, size_t* indexLine );
