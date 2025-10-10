@@ -76,10 +76,10 @@ void getArrayOfStr( strInformation *stringFromFile, bufferInformation *bufferFro
     assert( bufferFromFile != NULL );
 
     size_t bufferIndex = 0, arrayStrIndex = 1;
-    (stringFromFile->arrayOfStr)[0] = cleanLine( (bufferFromFile->buffer) );
+    (stringFromFile->arrayOfStr)[0] = (bufferFromFile->buffer);
     for( ; bufferIndex < (bufferFromFile->bufferSize); bufferIndex++ ){
         if ( (bufferFromFile->buffer)[bufferIndex] == symbol ) {
-            (stringFromFile->arrayOfStr)[arrayStrIndex] = cleanLine( ( (bufferFromFile->buffer) + bufferIndex + 1) );
+            (stringFromFile->arrayOfStr)[arrayStrIndex] = ( (bufferFromFile->buffer) + bufferIndex + 1);
             ++arrayStrIndex;
         }
     }

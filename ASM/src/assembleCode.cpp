@@ -30,7 +30,7 @@ commandInformation arrayWithAssembleCommand[] = {
 
 size_t sizeArrayWithASMCommand = sizeof( arrayWithAssembleCommand ) / sizeof( arrayWithAssembleCommand[ 0 ] );
 
-typeOfErr assemble( const char* fileForAsm, const char* fileForByteCode ){
+typeOfErr assemble( const char* fileForAsm, const char* fileForByteCode, int* labels, size_t* countOfCommand ){
     FILE* asmFile = fopen( fileForAsm, "r");
 
     bufferInformation bufferFromFile = {};
@@ -56,7 +56,7 @@ typeOfErr assemble( const char* fileForAsm, const char* fileForByteCode ){
         return BYTE_FILE_ERROR;
     }
 
-    typeOfErr codeOfError = writeToFile( stringFromFile, byteFile );
+    typeOfErr codeOfError = writeToFile( stringFromFile, byteFile, labels, countOfCommand );
     if( codeOfError != OK ){
         return COMMAND_ERROR;
     }
@@ -84,17 +84,27 @@ void parseCommandName( char* lineFromFile, char* codeForOperation, size_t* white
     codeForOperation[ *whitespaceIndex ] = '\0';
 }
 
-typeOfErr writeToFile( strInformation stringFromFile, FILE* byteFile ){
+typeOfErr writeToFile( strInformation stringFromFile, FILE* byteFile, int* labels, size_t* countOfCommand ){
     assert( byteFile != NULL );
 
     char codeForOperation[ lenOfCommand ] = "\0";
-    size_t whitespaceIndex = 0, indexArray = 0, countOfCommand = 0;
+    size_t whitespaceIndex = 0, indexArray = 0;
 
     for( ; indexArray < stringFromFile.arraySize; indexArray++ ){
 
         bool flag = false;
         char* lineInArray = *(stringFromFile.arrayOfStr + indexArray);
+
+        if ( findLabels( byteFile, lineInArray, labels, countOfCommand ) ){
+            continue;
+        }
         parseCommandName( lineInArray , codeForOperation, &whitespaceIndex );
+        if( whitespaceIndex == strlen( lineInArray ) ){
+            *countOfCommand += 1;
+        }
+        else{
+            *countOfCommand += 2;
+        }
 
         for( size_t indexASMArray = 0; indexASMArray < sizeArrayWithASMCommand; indexASMArray++ ){
             if( strcmp( codeForOperation, (arrayWithAssembleCommand[ indexASMArray]).firstArg ) == 0 &&
@@ -133,4 +143,27 @@ void ASM_PUSH( FILE* byteFile,  const char* intFirstArg,
 void ASM_FPRINTF( FILE* byteFile,  const char* intFirstArg,
                   size_t whitespaceIndex, char* lineInArray){
     fprintf( byteFile, "%s\n", intFirstArg);
+}
+
+bool findLabels( FILE* byteFile, char* lineFromFile, int* labels, size_t* countOfCommand ){
+    if( lineFromFile[0] == ':' ){
+        labels[ atoi( lineFromFile + 1 ) ] = *countOfCommand;
+        return true;
+    }
+
+    char* colon = strchr( lineFromFile, ':' );
+    if( colon != NULL ){
+        int indexToJump = labels[ atoi( colon + 1 ) ];
+        char* whitespace = strchr( lineFromFile, ' ' );
+        *whitespace = '\0';
+        for( size_t index = 0; index < sizeArrayWithASMCommand; index++ ){
+            if( strcmp( lineFromFile, arrayWithAssembleCommand[index].firstArg ) == 0 ){
+                fprintf( byteFile, "%s %d\n", arrayWithAssembleCommand[index].intFirstArg, indexToJump );
+            }
+        }
+        *countOfCommand += 2;
+        return true;
+    }
+
+    return false;
 }

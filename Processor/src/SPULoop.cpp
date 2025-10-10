@@ -12,7 +12,6 @@ void calculationFromProcessor( Processor *SPU, const char* byteFile ){
     SPU_OK( SPU );
 
     softProcessor( byteFile, SPU );
-    //int first = 0, last = 0, indexOfRegister = 0;
     int DO = 1;
 
     while( (SPU->instructionPointer) < (SPU->code).sizeOfCommands && DO ){
@@ -127,7 +126,7 @@ void doJB( Processor* SPU ){
     if( first < last ){
         SPU->instructionPointer = (SPU->code).command[ (SPU->instructionPointer) + 1 ] - 1;
     }
-    else{
+    else if( SPU->instructionPointer < ( (SPU->code).sizeOfCommands - 1) ){
         SPU->instructionPointer += 1;
         //printf("\nElement in code [%lu] = %d\n", SPU->instructionPointer, (SPU->code).command[SPU->instructionPointer]);
     }
@@ -140,9 +139,9 @@ void doJA( Processor* SPU ){
     if( first >= last ){
         SPU->instructionPointer = (SPU->code).command[ (SPU->instructionPointer) + 1 ] - 1;
     }
-    else{
+    else if( SPU->instructionPointer < ( (SPU->code).sizeOfCommands - 1) ){
         SPU->instructionPointer += 1;
-        printf("\nElement in code from JA [%lu] = %d\n", SPU->instructionPointer, (SPU->code).command[SPU->instructionPointer]);
+        //printf("\nElement in code from JA [%lu] = %d\n", SPU->instructionPointer, (SPU->code).command[SPU->instructionPointer]);
     }
     colorPrintf( NOMODE, PURPLE, "\nInstruction pointer = %lu\n", SPU->instructionPointer );
 }

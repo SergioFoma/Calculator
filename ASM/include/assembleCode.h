@@ -14,8 +14,8 @@ enum typeOfErr {
     SPLIT_LINES_ERROR  = 3,
     INIT_STRING_ERROR  = 4,
     INIT_BUFFER_ERROR  = 5,
-
 };
+
 
 void ASM_PUSH( FILE* byteFile,  const char* intFirstArg,
                size_t whitespaceIndex = 0, char* lineInArray = "\0");
@@ -30,10 +30,12 @@ struct commandInformation {
                     size_t whitespaceIndex , char* lineInArray );
 };
 
-typeOfErr assemble( const char* fileForAsm, const char* fileForByteCode );
+typeOfErr assemble( const char* fileForAsm, const char* fileForByteCode, int* labels, size_t* countOfCommand );
 
 void parseCommandName( char* lineFromFile, char* codeForOperation, size_t* indexLine );
 
-typeOfErr writeToFile( strInformation stringFromFile, FILE* byteFile );
+typeOfErr writeToFile( strInformation stringFromFile, FILE* byteFile, int* labels, size_t* countOfCommand );
+
+bool findLabels( FILE* byteFile, char* lineFromFile, int* labels, size_t* countOfCommand );
 
 #endif
