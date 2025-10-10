@@ -25,6 +25,8 @@ commandInformation arrayWithAssembleCommand[] = {
     { "SOLVE EQUATION", "10",   ASM_FPRINTF }
 };
 
+size_t sizeArrayWithASMCommand = sizeof( arrayWithAssembleCommand ) / sizeof( arrayWithAssembleCommand[ 0 ] );
+
 typeOfErr assemble( const char* fileForAsm, const char* fileForByteCode ){
     FILE* asmFile = fopen( fileForAsm, "r");
 
@@ -91,7 +93,7 @@ typeOfErr writeToFile( strInformation stringFromFile, FILE* byteFile ){
         char* lineInArray = *(stringFromFile.arrayOfStr + indexArray);
         parseCommandName( lineInArray , codeForOperation, &whitespaceIndex );
 
-        for( size_t indexASMArray = 0; indexASMArray < 15; indexASMArray++ ){
+        for( size_t indexASMArray = 0; indexASMArray < sizeArrayWithASMCommand; indexASMArray++ ){
             if( strcmp( codeForOperation, (arrayWithAssembleCommand[ indexASMArray]).firstArg ) == 0 &&
                 indexASMArray == 0 ){
                 (arrayWithAssembleCommand[ indexASMArray ] ).func( byteFile, (arrayWithAssembleCommand[ indexASMArray]).intFirstArg,
@@ -112,7 +114,6 @@ typeOfErr writeToFile( strInformation stringFromFile, FILE* byteFile ){
             colorPrintf( NOMODE, RED, "\nUnidentified command in ASM File :%s %s %d\n%s %d\n", __FILE__, __func__, __LINE__ , lineInArray,strlen( lineInArray ));
             return COMMAND_ERROR;
         }
-
         whitespaceIndex = 0;
     }
 

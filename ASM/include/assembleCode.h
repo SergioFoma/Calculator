@@ -30,8 +30,6 @@ struct commandInformation {
                     size_t whitespaceIndex , char* lineInArray );
 };
 
-//size_t sizeArrayWithASMCommand = sizeof( arrayWithAssembleCommand ) / sizeof( arrayWithAssembleCommand[ 0 ] );
-
 typeOfErr assemble( const char* fileForAsm, const char* fileForByteCode );
 
 void parseCommandName( char* lineFromFile, char* codeForOperation, size_t* indexLine );
