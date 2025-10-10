@@ -35,15 +35,20 @@ void calculationFromProcessor( Processor *SPU, const char* byteFile ){
             case IN:
                 doIn( SPU );
                 break;
-            case SOLVER:{
+            case SOLVER:
                 doSolveEquation( SPU );
                 break;
-            }
             case POPR:
                 doPopr( SPU );
                 break;
             case PUSHR:
                 doPushr( SPU );
+                break;
+            case JB:
+                doJB( SPU );
+                break;
+            case JA:
+                doJA( SPU );
                 break;
             default:
                 break;
@@ -110,10 +115,34 @@ void doPushr( Processor* SPU ){
     stackPrint( &(SPU->stk) );
     regsPrint( SPU );
 }
-
 void doSolveEquation( Processor* SPU ){
     Coefficients coefficients = {1, -2, -8};
     SolveResult answer = { NAN, NAN, zeroRoot};
     solveEquation( coefficients, &answer );
     printResult( coefficients, answer );
+}
+void doJB( Processor* SPU ){
+    int last = stackPop( &(SPU->stk) );
+    int first = stackPop( &(SPU->stk) );
+    if( first < last ){
+        SPU->instructionPointer = (SPU->code).command[ (SPU->instructionPointer) + 1 ] - 1;
+    }
+    else{
+        SPU->instructionPointer += 1;
+        //printf("\nElement in code [%lu] = %d\n", SPU->instructionPointer, (SPU->code).command[SPU->instructionPointer]);
+    }
+    colorPrintf( NOMODE, PURPLE, "\nInstruction pointer = %lu\n", SPU->instructionPointer );
+}
+
+void doJA( Processor* SPU ){
+    int last = stackPop( &(SPU->stk) );
+    int first = stackPop( &(SPU->stk) );
+    if( first >= last ){
+        SPU->instructionPointer = (SPU->code).command[ (SPU->instructionPointer) + 1 ] - 1;
+    }
+    else{
+        SPU->instructionPointer += 1;
+        printf("\nElement in code from JA [%lu] = %d\n", SPU->instructionPointer, (SPU->code).command[SPU->instructionPointer]);
+    }
+    colorPrintf( NOMODE, PURPLE, "\nInstruction pointer = %lu\n", SPU->instructionPointer );
 }

@@ -9,13 +9,16 @@
 
 commandInformation arrayWithAssembleCommand[] = {
     { "PUSH", "1", ASM_PUSH },
+    { "JB", "50", ASM_PUSH },
+    { "JA", "51", ASM_PUSH },
     { "IN", "9",  ASM_FPRINTF },
     { "MUL", "2", ASM_FPRINTF },
     { "SUB", "3", ASM_FPRINTF },
+    { "ADD", "5", ASM_FPRINTF },
     { "OUT", "4", ASM_FPRINTF },
     { "HLT", "0",   ASM_FPRINTF },
-    { "POPR RAX ", "42 0",   ASM_FPRINTF },
-    { "PUSHR RAX ", "33 0",  ASM_FPRINTF },
+    { "POPR RAX", "42 0",   ASM_FPRINTF },
+    { "PUSHR RAX", "33 0",  ASM_FPRINTF },
     { "POPR RBX", "42 1",  ASM_FPRINTF },
     { "PUSHR RBX", "33 1",   ASM_FPRINTF },
     { "POPR RCX", "42 2",   ASM_FPRINTF },
@@ -95,7 +98,7 @@ typeOfErr writeToFile( strInformation stringFromFile, FILE* byteFile ){
 
         for( size_t indexASMArray = 0; indexASMArray < sizeArrayWithASMCommand; indexASMArray++ ){
             if( strcmp( codeForOperation, (arrayWithAssembleCommand[ indexASMArray]).firstArg ) == 0 &&
-                indexASMArray == 0 ){
+                indexASMArray <= 2 ){
                 (arrayWithAssembleCommand[ indexASMArray ] ).func( byteFile, (arrayWithAssembleCommand[ indexASMArray]).intFirstArg,
                                                                    whitespaceIndex, lineInArray );
                 flag = true;
