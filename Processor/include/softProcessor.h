@@ -41,7 +41,7 @@ struct Processor{
 
 void softProcessor( const char* nameOfByteFile, Processor* SPU );
 
-void getArrayWithCommand( strInformation stringFromFile, Processor* SPU );
+void getArrayWithCommand( bufferInformation bufferFromFile, Processor* SPU );
 
 void processorInit( Processor* SPU );
 

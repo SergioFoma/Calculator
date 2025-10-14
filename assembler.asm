@@ -1,5 +1,6 @@
 PUSH 1
-POPR RAX
+POPR RAX ; regs A
+;_____________
 :0
 PUSHR RAX
 PUSHR RAX
@@ -11,9 +12,9 @@ ADD
 POPR RAX
 PUSHR RAX
 PUSH 10
-JB :0
-PUSH 123
-PUSH 123
-JA 31
-PUSH 6952
+JB ::0
+JAE ::1
+;__________
+PUSH 69
+:1
 HLT

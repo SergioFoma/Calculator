@@ -2,35 +2,32 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+#include <ctype.h>
 
 #include "assembleCode.h"
 #include "onegin.h"
 #include "paint.h"
 
-commandInformation arrayWithAssembleCommand[] = {
-    { "PUSH", "1", ASM_PUSH },
-    { "JB", "50", ASM_PUSH },
-    { "JA", "51", ASM_PUSH },
-    { "IN", "9",  ASM_FPRINTF },
-    { "MUL", "2", ASM_FPRINTF },
-    { "SUB", "3", ASM_FPRINTF },
-    { "ADD", "5", ASM_FPRINTF },
-    { "OUT", "4", ASM_FPRINTF },
-    { "HLT", "0",   ASM_FPRINTF },
-    { "POPR RAX", "42 0",   ASM_FPRINTF },
-    { "PUSHR RAX", "33 0",  ASM_FPRINTF },
-    { "POPR RBX", "42 1",  ASM_FPRINTF },
-    { "PUSHR RBX", "33 1",   ASM_FPRINTF },
-    { "POPR RCX", "42 2",   ASM_FPRINTF },
-    { "PUSHR RCX", "33 2",   ASM_FPRINTF },
-    { "POPR RDX", "42 3",   ASM_FPRINTF },
-    { "PUSHR RDX", "33 3",   ASM_FPRINTF },
-    { "SOLVE EQUATION", "10",   ASM_FPRINTF }
+commandForPrint arrayWithOneCommand[] = {
+    { "PUSH", 1, ASM_FPRINTF },
+    { "IN", 9,  ASM_FPRINTF },
+    { "MUL", 2, ASM_FPRINTF },
+    { "SUB", 3, ASM_FPRINTF },
+    { "ADD", 5, ASM_FPRINTF },
+    { "OUT", 4, ASM_FPRINTF },
+    { "HLT", 0,   ASM_FPRINTF },
+    { "PUSHR", 33, ASM_FPRINTF },
+    { "POPR", 42, ASM_FPRINTF },
+    { "JB", 50, ASM_FPRINTF },
+    { "JAE", 53, ASM_FPRINTF },
+    {"RAX", RAX, ASM_FPRINTF },
+    {"RBX", RBX, ASM_FPRINTF },
+    {"RCX", RCX, ASM_FPRINTF},
+    {"RDX", RDX, ASM_FPRINTF }
 };
+size_t sizeArrayWithOneCommand = sizeof( arrayWithOneCommand ) / sizeof( arrayWithOneCommand[ 0 ] );
 
-size_t sizeArrayWithASMCommand = sizeof( arrayWithAssembleCommand ) / sizeof( arrayWithAssembleCommand[ 0 ] );
-
-typeOfErr assemble( const char* fileForAsm, const char* fileForByteCode, int* labels, size_t* countOfCommand ){
+typeOfErr assemble( const char* fileForAsm, const char* fileForByteCode, int* labels, bool writeOrNot){
     FILE* asmFile = fopen( fileForAsm, "r");
 
     bufferInformation bufferFromFile = {};
@@ -51,40 +48,69 @@ typeOfErr assemble( const char* fileForAsm, const char* fileForByteCode, int* la
     }
     fclose( asmFile );
 
+    informationOfStringCommand stringCommand = {};
+    typeOfErr err = initStringCommand( &stringCommand );
+    if( err != OK ){
+        return err;
+    }
+
+    size_t sizeOfIntCommands = 0;
+    err = takeCommandArray( stringFromFile, &stringCommand, &sizeOfIntCommands );
+    if( err != OK ){
+        return err;
+    }
+
+    int* arrayWithIntCommand = (int*)calloc( sizeOfIntCommands, sizeof( int ) );
+
     FILE* byteFile = fopen( fileForByteCode, "a" );
     if( byteFile == NULL ){
         return BYTE_FILE_ERROR;
     }
 
-    typeOfErr codeOfError = writeToFile( stringFromFile, byteFile, labels, countOfCommand );
-    if( codeOfError != OK ){
-        return COMMAND_ERROR;
+    err = takeIntArray( stringCommand, byteFile, labels, arrayWithIntCommand );
+    /*printf("___________INT______________\n");
+    for( size_t index = 0; index < sizeOfIntCommands; index++ ){
+        printf("%d ", arrayWithIntCommand[ index ] );
+    }
+    printf("Size = %lu\n", sizeOfIntCommands);
+    return OK;*/
+
+    if( err != OK ){
+        return err;
+    }
+
+    if( writeOrNot ){
+        err = takeIntArray( stringCommand, byteFile, labels, arrayWithIntCommand );
+    }
+
+    for( size_t index = 0; index < sizeOfIntCommands; index++){
+        fprintf( byteFile, "%d ", arrayWithIntCommand[ index ] );
     }
     fclose( byteFile );
+
+    free( arrayWithIntCommand );
+
+    destroyStringCommand( &stringCommand );
 
     return OK;
 }
 
-void parseCommandName( char* lineFromFile, char* codeForOperation, size_t* whitespaceIndex ){
+bool parseCommandName( char* lineFromFile ){
     assert( lineFromFile != NULL );
-    assert( codeForOperation != NULL );
-    assert( whitespaceIndex != NULL );
 
     char* getIndexOfComment = strchr( lineFromFile, ';' );
     if( getIndexOfComment != NULL ){
         *getIndexOfComment = '\0';
     }
 
-    size_t sizeLine = strlen( lineFromFile );
-
-    while( lineFromFile[ *whitespaceIndex ] != ' ' && *whitespaceIndex < sizeLine ){
-        codeForOperation[ *whitespaceIndex ] = lineFromFile[ *whitespaceIndex ];
-        ++(*whitespaceIndex);
+    if( lineFromFile[0] == ':' && lineFromFile[1] != ':'){
+        return true;
     }
-    codeForOperation[ *whitespaceIndex ] = '\0';
+
+    return false;
 }
 
-typeOfErr writeToFile( strInformation stringFromFile, FILE* byteFile, int* labels, size_t* countOfCommand ){
+/*typeOfErr writeToFile( strInformation stringFromFile, FILE* byteFile, int* labels, size_t* countOfCommand ){
     assert( byteFile != NULL );
 
     char codeForOperation[ lenOfCommand ] = "\0";
@@ -98,11 +124,11 @@ typeOfErr writeToFile( strInformation stringFromFile, FILE* byteFile, int* label
         if ( findLabels( byteFile, lineInArray, labels, countOfCommand ) ){
             continue;
         }
-        parseCommandName( lineInArray , codeForOperation, &whitespaceIndex );
+        //parseCommandName( lineInArray , codeForOperation, &whitespaceIndex );
         if( whitespaceIndex == strlen( lineInArray ) ){
             *countOfCommand += 1;
         }
-        else{
+        else if( strlen(lineInArray) > 0 ){
             *countOfCommand += 2;
         }
 
@@ -132,20 +158,13 @@ typeOfErr writeToFile( strInformation stringFromFile, FILE* byteFile, int* label
 
     return OK;
 
+}*/
+
+void ASM_FPRINTF( FILE* byteFile,  int intFirstArg){
+    fprintf( byteFile, "%d ", intFirstArg);
 }
 
-void ASM_PUSH( FILE* byteFile,  const char* intFirstArg,
-               size_t whitespaceIndex, char* lineInArray){
-    ++whitespaceIndex;
-    int number = atoi( lineInArray + whitespaceIndex );
-    fprintf( byteFile, "%s %d\n", intFirstArg, number );
-}
-void ASM_FPRINTF( FILE* byteFile,  const char* intFirstArg,
-                  size_t whitespaceIndex, char* lineInArray){
-    fprintf( byteFile, "%s\n", intFirstArg);
-}
-
-bool findLabels( FILE* byteFile, char* lineFromFile, int* labels, size_t* countOfCommand ){
+/*bool findLabels( FILE* byteFile, char* lineFromFile, int* labels, size_t* countOfCommand ){
     if( lineFromFile[0] == ':' ){
         labels[ atoi( lineFromFile + 1 ) ] = *countOfCommand;
         return true;
@@ -153,6 +172,11 @@ bool findLabels( FILE* byteFile, char* lineFromFile, int* labels, size_t* countO
 
     char* colon = strchr( lineFromFile, ':' );
     if( colon != NULL ){
+        char* getIndexOfComment = strchr( lineFromFile, ';' );
+        if( getIndexOfComment != NULL ){
+            *getIndexOfComment = '\0';
+        }
+
         int indexToJump = labels[ atoi( colon + 1 ) ];
         char* whitespace = strchr( lineFromFile, ' ' );
         *whitespace = '\0';
@@ -162,6 +186,143 @@ bool findLabels( FILE* byteFile, char* lineFromFile, int* labels, size_t* countO
             }
         }
         *countOfCommand += 2;
+        return true;
+    }
+
+    return false;
+}*/
+
+typeOfErr takeCommandArray( strInformation stringFromFile, informationOfStringCommand* stringCommand, size_t* sizeOfIntCommands ){
+    if( stringCommand == NULL ){
+        colorPrintf( NOMODE, RED, "\nstruct stringCommand = NULL PTR in :%s %s %d\n", __FILE__, __func__, __LINE__ );
+        return COMMAND_NULL_PTR;
+    }
+
+    if( stringCommand->arrayWithStringCommand == NULL ){
+        stringCommand->arrayWithStringCommand = (char**)calloc( stringCommand->startSize, sizeof( char* ) );
+    }
+    int statusOfReading = -1;
+    size_t countOfLabels = 0;
+    char commandName[ lenOfCommand ] = "", commandCode[ lenOfCommand ] = "";
+
+    for( size_t index = 0; index < stringFromFile.arraySize; index++ ){
+        if( parseCommandName( stringFromFile.arrayOfStr[ index ] ) ){
+            ++countOfLabels;
+        }
+        statusOfReading = sscanf( stringFromFile.arrayOfStr[ index ], "%s %s", commandName, commandCode );
+        if( (stringCommand->arraySize + statusOfReading) >= stringCommand->startSize ){
+            stringCommand->startSize *= 2;
+            stringCommand->arrayWithStringCommand= (char**)realloc( stringCommand->arrayWithStringCommand,
+                                                      (stringCommand->startSize) * sizeof( char* ) );
+            if( stringCommand->arrayWithStringCommand == NULL ){
+                return COMMAND_NULL_PTR;
+            }
+        }
+        if( statusOfReading == 1 ){
+            (stringCommand->arrayWithStringCommand)[ (stringCommand->arraySize)++ ] = strdup(commandName);
+        }
+        else if( statusOfReading == 2 ){
+            (stringCommand->arrayWithStringCommand)[ (stringCommand->arraySize)++ ] = strdup(commandName);
+            (stringCommand->arrayWithStringCommand)[ (stringCommand->arraySize)++ ] = strdup(commandCode);
+        }
+    }
+
+    *sizeOfIntCommands = stringCommand->arraySize - countOfLabels;
+    for( size_t index = 0; index<(stringCommand->arraySize); index++ ){
+        printf("'%s'\n", (stringCommand->arrayWithStringCommand)[ index ] );
+    }
+    return OK;
+}
+
+typeOfErr initStringCommand( informationOfStringCommand* stringCommand ){
+    if( stringCommand == NULL ){
+        return INIT_COMMAND_ERROR;
+    }
+
+    stringCommand->startSize = 8;
+    stringCommand->arrayWithStringCommand = NULL;
+    stringCommand->arraySize = 0;
+    return OK;
+}
+
+typeOfErr destroyStringCommand( informationOfStringCommand* stringCommand ){
+    if( stringCommand == NULL ){
+        return COMMAND_NULL_PTR;
+    }
+
+    for( size_t index = 0; index < (stringCommand->arraySize); index++){
+        free( (stringCommand->arrayWithStringCommand)[ index ] );
+    }
+
+    free( stringCommand->arrayWithStringCommand );
+    stringCommand->arraySize = 0;
+    stringCommand->startSize = 0;
+    return OK;
+}
+
+typeOfErr takeIntArray( informationOfStringCommand stringFromFile, FILE* byteFile, int* labels, int* arrayWithIntCommand ){
+    if( byteFile == NULL ){
+        return BYTE_FILE_ERROR;
+    }
+
+    bool flag = false;
+    size_t stringIndex = 0, intIndex = 0, index = 0;
+    printf("______________________\n");
+    while( stringIndex < stringFromFile.arraySize){
+        flag = false;
+        printf("%s\n", (stringFromFile.arrayWithStringCommand)[ stringIndex ] );
+
+        flag = checkNumber( byteFile, stringFromFile, &stringIndex, arrayWithIntCommand, &intIndex);
+        GO_NEXT_OR_NOT();
+
+        flag = checkLabel( byteFile, stringFromFile, &stringIndex, labels, arrayWithIntCommand, &intIndex );
+        GO_NEXT_OR_NOT();
+
+        for( index = 0; index < sizeArrayWithOneCommand; index++ ){
+            if( strcmp( (stringFromFile.arrayWithStringCommand)[ stringIndex ], arrayWithOneCommand[ index ].firstArg ) == 0 ){
+                arrayWithIntCommand[ intIndex++ ] = arrayWithOneCommand[ index ].intFirstArg;
+                ++stringIndex;
+                flag = true;
+                break;
+            }
+
+        }
+        GO_NEXT_OR_NOT();
+        ++stringIndex;
+    }
+
+    return OK;
+}
+
+bool checkNumber( FILE* byteFile, informationOfStringCommand stringFromFile, size_t* stringIndex, int* arrayWithIntCommand, size_t* intIndex ){
+    if( stringIndex == NULL || byteFile == NULL ){
+        return false;
+    }
+    char* command = (stringFromFile.arrayWithStringCommand)[ *stringIndex ];
+
+    if( isdigit( command[0]) || command[0] == '-' ){
+        arrayWithIntCommand[ (*intIndex)++ ] = atoi( command );
+        ++(*stringIndex);
+        return true;
+    }
+
+    return false;
+}
+
+bool checkLabel( FILE* byteFile, informationOfStringCommand stringFromFile, size_t* stringIndex, int* labels, int* arrayWithIntCommand, size_t* intIndex ){
+    if( byteFile == NULL || stringIndex == NULL || labels == NULL ){
+        return false;
+    }
+    char* command = (stringFromFile.arrayWithStringCommand)[ *stringIndex ];
+
+    if( command[0] == ':' && command[1] == ':' ){
+        arrayWithIntCommand[ (*intIndex)++ ] = labels[ atoi( command + 2 ) ];
+        ++(*stringIndex);
+        return true;
+    }
+    else if( command[0] == ':' ){
+        labels[ atoi( command + 1 ) ] = *stringIndex;
+        ++(*stringIndex);
         return true;
     }
 

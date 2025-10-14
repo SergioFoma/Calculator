@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdio.h>
 
 #include "softProcessor.h"
 #include "checkError.h"
@@ -20,7 +21,7 @@ void softProcessor( const char* nameOfByteFile, Processor* SPU ){
     FILE* byteFile = fopen( nameOfByteFile, "r" );
 
     bufferInformation bufferFromFile = {};
-    strInformation stringFromFile = {};
+    //strInformation stringFromFile = {};
 
     errorCode bufferError = initBufferInformation( &bufferFromFile, byteFile );
     if( bufferError != correct ){
@@ -28,35 +29,46 @@ void softProcessor( const char* nameOfByteFile, Processor* SPU ){
         fclose( byteFile );
         return ;
     }
-    errorCode stringError = initStringInformation( &stringFromFile );
+    /*errorCode stringError = initStringInformation( &stringFromFile );
     if( stringError != correct ){
         colorPrintf(NOMODE, RED, "Error of init string struct :%s %s %d\n", __FILE__, __func__, __LINE__ );
         fclose( byteFile );
         return ;
-    }
+    }*/
 
-    if ( !splitToLines( &bufferFromFile, &stringFromFile, byteFile ) ){
+    /*if ( !splitToLines( &bufferFromFile, &stringFromFile, byteFile ) ){
         colorPrintf( NOMODE, RED, "Error of spit lines :%s %s %d\n", __FILE__, __func__, __LINE__ );
         fclose( byteFile );
         return ;
-    }
+    }*/
 
-    getArrayWithCommand( stringFromFile, SPU );
+    getArrayWithCommand( bufferFromFile, SPU );
     fclose( byteFile );
 }
 
 
-void getArrayWithCommand( strInformation stringFromFile, Processor* SPU ){
+void getArrayWithCommand( bufferInformation bufferFromFile, Processor* SPU ){
     SPU_OK( SPU );
 
     int** arrayWithCommand = &( (SPU->code).command );
     size_t* sizeCommands = &( (SPU->code).sizeOfCommands );
 
-    size_t indexOfStrArray = 0, startSize = 8;
+    size_t  indexOfBuffer = 0, startSize = 8;
+    int countOfReading = 0;
     *arrayWithCommand = (int*)calloc( startSize, sizeof( int ) );
 
-    for( ; indexOfStrArray < stringFromFile.arraySize; indexOfStrArray++ ){
-        char* lineForParsing = *(stringFromFile.arrayOfStr + indexOfStrArray);
+    while ( indexOfBuffer < bufferFromFile.bufferSize ) {
+        if( (*sizeCommands) == startSize - 1 ){
+            startSize *= 2;
+            *arrayWithCommand = (int*)realloc( *arrayWithCommand, startSize * sizeof( int ) );
+        }
+
+        sscanf( bufferFromFile.buffer + indexOfBuffer, "%d%n", (*arrayWithCommand + (*sizeCommands)++ ), &countOfReading );
+        if( countOfReading == 0){
+            break;
+        }
+        indexOfBuffer += countOfReading;
+        /*char* lineForParsing = *(stringFromFile.arrayOfStr + indexOfStrArray);
         printf("%s\n", lineForParsing );
         if( (*sizeCommands) == startSize - 1 ){
             startSize *= 2;
@@ -74,7 +86,7 @@ void getArrayWithCommand( strInformation stringFromFile, Processor* SPU ){
         else{
             int code = atoi( lineForParsing );
             (*arrayWithCommand)[ (*sizeCommands)++ ] = code;
-        }
+        }*/
     }
 }
 
