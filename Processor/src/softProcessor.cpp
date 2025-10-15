@@ -8,6 +8,7 @@
 void processorInit( Processor* SPU ){
     size_t startSizeForStack = 8;
     stackInit( &(SPU->stk), startSizeForStack );
+    stackInit( &(SPU->regAddr), startSizeForStack );
 
     SPU->instructionPointer = 0;
     SPU->indexForRegister = RAX;
@@ -21,7 +22,6 @@ void softProcessor( const char* nameOfByteFile, Processor* SPU ){
     FILE* byteFile = fopen( nameOfByteFile, "r" );
 
     bufferInformation bufferFromFile = {};
-    //strInformation stringFromFile = {};
 
     errorCode bufferError = initBufferInformation( &bufferFromFile, byteFile );
     if( bufferError != correct ){
@@ -29,18 +29,6 @@ void softProcessor( const char* nameOfByteFile, Processor* SPU ){
         fclose( byteFile );
         return ;
     }
-    /*errorCode stringError = initStringInformation( &stringFromFile );
-    if( stringError != correct ){
-        colorPrintf(NOMODE, RED, "Error of init string struct :%s %s %d\n", __FILE__, __func__, __LINE__ );
-        fclose( byteFile );
-        return ;
-    }*/
-
-    /*if ( !splitToLines( &bufferFromFile, &stringFromFile, byteFile ) ){
-        colorPrintf( NOMODE, RED, "Error of spit lines :%s %s %d\n", __FILE__, __func__, __LINE__ );
-        fclose( byteFile );
-        return ;
-    }*/
 
     getArrayWithCommand( bufferFromFile, SPU );
     fclose( byteFile );
@@ -68,31 +56,12 @@ void getArrayWithCommand( bufferInformation bufferFromFile, Processor* SPU ){
             break;
         }
         indexOfBuffer += countOfReading;
-        /*char* lineForParsing = *(stringFromFile.arrayOfStr + indexOfStrArray);
-        printf("%s\n", lineForParsing );
-        if( (*sizeCommands) == startSize - 1 ){
-            startSize *= 2;
-            *arrayWithCommand = (int*)realloc( *arrayWithCommand, startSize * sizeof( int ) );
-        }
-
-        char* indexProbel = strchr( lineForParsing, ' ' );
-        if ( indexProbel != NULL ){
-            (*indexProbel) = '\0';
-            int code = atoi( lineForParsing );
-            int number = atoi( indexProbel + 1 );
-            (*arrayWithCommand)[ (*sizeCommands)++ ] = code;
-            (*arrayWithCommand)[ (*sizeCommands)++ ] = number;
-        }
-        else{
-            int code = atoi( lineForParsing );
-            (*arrayWithCommand)[ (*sizeCommands)++ ] = code;
-        }*/
     }
 }
 
 void processorDestroy( Processor* SPU ){
     stackDestroy( &(SPU->stk) );
-
+    stackDestroy( &(SPU->regAddr) );
     free( (SPU->code).command );
 
     (SPU->code).command = NULL;

@@ -117,6 +117,12 @@ void processorDump( const char* file, const char* func, int line, Processor *SPU
         fclose( fileForSPU );
         return ;
     }
+    else if( stackVerify( &(SPU->regAddr) ) != CORRECT ){
+        stackDump( __FILE__, __func__, __LINE__, &(SPU->regAddr) );
+        SPU->spuErr = STACK_ERROR;
+        fclose( fileForSPU );
+        return ;
+    }
     else if( (SPU->code).command == NULL ){
         fprintf( fileForSPU, "\nIn struct code: command - NULL PTR\n");
         SPU->spuErr = CODE_NULL_PTR;

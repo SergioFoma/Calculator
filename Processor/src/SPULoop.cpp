@@ -46,13 +46,20 @@ void calculationFromProcessor( Processor *SPU, const char* byteFile ){
             case JB:
                 doJB( SPU );
                 break;
-            case JA:
-                doJA( SPU );
+            case JAE:
+                doJAE( SPU );
+                break;
+            case CALL:
+                doCall( SPU );
+                break;
+            case RET:
+                doRet( SPU );
                 break;
             default:
                 break;
         }
         ++(SPU->instructionPointer);
+
     }
 }
 
@@ -133,7 +140,7 @@ void doJB( Processor* SPU ){
     colorPrintf( NOMODE, PURPLE, "\nInstruction pointer = %lu\n", SPU->instructionPointer );
 }
 
-void doJA( Processor* SPU ){
+void doJAE( Processor* SPU ){
     int last = stackPop( &(SPU->stk) );
     int first = stackPop( &(SPU->stk) );
     if( first >= last ){
@@ -144,4 +151,19 @@ void doJA( Processor* SPU ){
         //printf("\nElement in code from JA [%lu] = %d\n", SPU->instructionPointer, (SPU->code).command[SPU->instructionPointer]);
     }
     colorPrintf( NOMODE, PURPLE, "\nInstruction pointer = %lu\n", SPU->instructionPointer );
+}
+
+void doCall( Processor* SPU ){
+    if( SPU->instructionPointer + 2 >= (SPU->code).sizeOfCommands ){
+        return ;
+    }
+
+    int indexOfNextCommand = SPU->instructionPointer + 2;
+    SPU->instructionPointer = (SPU->code).command[ SPU->instructionPointer + 1 ] - 1;
+    stackPush( &(SPU->regAddr), indexOfNextCommand );
+}
+
+void doRet( Processor *SPU ){
+    int indexOfReturnCommand = stackPop( &(SPU->regAddr) );
+    SPU->instructionPointer = indexOfReturnCommand - 1;
 }

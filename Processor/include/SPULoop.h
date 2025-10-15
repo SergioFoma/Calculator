@@ -18,7 +18,9 @@ enum doCommand {
     POPR        = 42,
     PUSHR       = 33,
     JB          = 50,
-    JA          = 51
+    JAE         = 53,
+    CALL        = 60,
+    RET         = 61
 };
 
 /*struct spuCommand {
@@ -48,6 +50,10 @@ void doSolveEquation( Processor* SPU );
 
 void doJB( Processor* SPU );
 
-void doJA( Processor* SPU );
+void doJAE( Processor* SPU );
+
+void doCall( Processor* SPU );
+
+void doRet( Processor* SPU );
 
 #endif

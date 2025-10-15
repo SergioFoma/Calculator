@@ -1,3 +1,4 @@
+CALL ::2
 PUSH 1
 POPR RAX ; regs A
 ;_____________
@@ -18,3 +19,16 @@ JAE ::1
 PUSH 69
 :1
 HLT
+
+:2
+PUSH 2
+PUSH 2
+MUL
+PUSH 4
+PUSH 1
+PUSH -10
+MUL
+MUL
+SUB
+OUT
+RET

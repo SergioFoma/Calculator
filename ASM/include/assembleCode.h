@@ -16,6 +16,7 @@ enum typeOfErr {
     INIT_BUFFER_ERROR  = 5,
     INIT_COMMAND_ERROR = 6,
     COMMAND_NULL_PTR   = 7,
+    NULL_PTR           = 8
 };
 enum regsIndex {
     RAX             = 0,
@@ -35,7 +36,6 @@ struct commandForPrint {
 
 struct informationOfStringCommand {
     char** arrayWithStringCommand;
-    int* arrayWithIntCommand;
     size_t arraySize;
     size_t startSize;
 };
@@ -59,6 +59,8 @@ bool findLabels( FILE* byteFile, char* lineFromFile, int* labels, size_t* countO
 bool checkNumber( FILE* byteFile, informationOfStringCommand stringFromFile, size_t* stringIndex, int* arrayWithIntCommand, size_t* intIndex );
 
 bool checkLabel( FILE* byteFile, informationOfStringCommand stringFromFile, size_t* stringIndex, int* labels, int* arrayWithIntCommand, size_t* intIndex  );
+
+typeOfErr printInFile( FILE* byteFile, int* arrayWithIntCommand, size_t sizeOfIntCommands );
 
 #define GO_NEXT_OR_NOT()            \
     if( flag == true ){             \

@@ -32,6 +32,7 @@ struct Code {
 
 struct Processor{
     stack_t stk;
+    stack_t regAddr;
     Code code;
     size_t instructionPointer;
     int regs[ sizeOfRegs ];
