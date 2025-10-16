@@ -1,4 +1,4 @@
-#include "onegin.h"
+#include "stringFunction.h"
 #include "paint.h"
 
 #include <stdio.h>

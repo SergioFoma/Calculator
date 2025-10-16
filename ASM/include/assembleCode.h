@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-#include "onegin.h"
+#include "stringFunction.h"
 
 const size_t lenOfCommand = 20;
 
@@ -31,7 +31,6 @@ void asmPrintf( FILE* byteFile,  int intFirstArg );
 struct commandForPrint {
     const char* firstArg;
     int intFirstArg;
-    void ( *func )( FILE* byteFile,  int intFirstArg);
 };
 struct informationOfStringCommand {
     char** arrayWithStringCommand;

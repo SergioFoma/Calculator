@@ -12,12 +12,12 @@ FLAGS = -Wshadow -Winit-self -Wredundant-decls -Wcast-align \
 
 SPU_FOLDER_NAME = Processor
 SPU_EXE_NAME = $(addprefix $(SPU_FOLDER_NAME)/, $(BUILD_DIR) )/Result.exe  # Processor/Build/Result.exe
-SPU_SOURCES = main.cpp stack.cpp checkError.cpp paint.cpp SPULoop.cpp onegin.cpp softProcessor.cpp solver.cpp
+SPU_SOURCES = main.cpp stack.cpp checkError.cpp paint.cpp SPULoop.cpp stringFunction.cpp softProcessor.cpp
 SPU_OBJECTS = $(SPU_SOURCES:.cpp=.obj)
 
 ASM_FOLDER_NAME = ASM
 ASM_EXE_NAME = $(addprefix $(ASM_FOLDER_NAME)/, $(BUILD_DIR) )/Result.exe
-ASM_SOURCES = main.cpp paint.cpp assembleCode.cpp onegin.cpp
+ASM_SOURCES = main.cpp paint.cpp assembleCode.cpp stringFunction.cpp
 ASM_OBJECTS = $(ASM_SOURCES:.cpp=.obj)
 
 SPU_OBJECTS_IN_SOURCE = $(addprefix $(SPU_FOLDER_NAME)/src/, $(SPU_OBJECTS))  # Processor/src/main.obj

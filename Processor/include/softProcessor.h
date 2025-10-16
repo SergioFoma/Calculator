@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-#include "onegin.h"
+#include "stringFunction.h"
 #include "stack.h"
 
 const size_t sizeOfRegs = 10;

@@ -5,30 +5,30 @@
 #include <ctype.h>
 
 #include "assembleCode.h"
-#include "onegin.h"
+#include "stringFunction.h"
 #include "paint.h"
 
 commandForPrint arrayWithOneCommand[] = {
-    { "PUSH", 1, asmPrintf },
-    { "IN", 9,  asmPrintf },
-    { "MUL", 2, asmPrintf },
-    { "SUB", 3, asmPrintf },
-    { "ADD", 5, asmPrintf },
-    { "OUT", 4, asmPrintf },
-    { "HLT", 0,   asmPrintf },
-    { "PUSHR", 33, asmPrintf },
-    { "POPR", 42, asmPrintf },
-    { "PUSHM", 70, asmPrintf },
-    { "POPM", 71, asmPrintf },
-    { "[AX]", RAX, asmPrintf },
-    { "[BX]", RBX, asmPrintf },
-    { "[CX]", RCX, asmPrintf },
-    { "[DX]", RDX, asmPrintf },
-    { "RAX", RAX, asmPrintf },
-    { "RBX", RBX, asmPrintf },
-    { "RCX", RCX, asmPrintf},
-    { "RDX", RDX, asmPrintf },
-    { "RET", 61, asmPrintf }
+    { "PUSH",   1 },
+    { "IN",     9 },
+    { "MUL",    2 },
+    { "SUB",    3 },
+    { "ADD",    5 },
+    { "OUT",    4 },
+    { "HLT",    0 },
+    { "PUSHR", 33 },
+    { "POPR",  42 },
+    { "PUSHM", 70 },
+    { "POPM",  71 },
+    { "[AX]",  RAX },
+    { "[BX]",  RBX },
+    { "[CX]",  RCX },
+    { "[DX]",  RDX },
+    { "RAX",  RAX },
+    { "RBX",  RBX },
+    { "RCX",  RCX },
+    { "RDX",  RDX },
+    { "RET",  61 }
 };
 size_t sizeArrayWithOneCommand = sizeof( arrayWithOneCommand ) / sizeof( arrayWithOneCommand[ 0 ] );
 

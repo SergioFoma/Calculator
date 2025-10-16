@@ -6,7 +6,6 @@
 #include "softProcessor.h"
 #include "paint.h"
 #include "checkError.h"
-#include "solver.h"
 
 void calculationFromProcessor( Processor *SPU, const char* byteFile ){
     SPU_OK( SPU );
@@ -23,11 +22,16 @@ void calculationFromProcessor( Processor *SPU, const char* byteFile ){
                 doPush( SPU );
                 break;
             case MUL:
-                // TODO doMathOperation(SPU, ..., addNumbers); addNumbers is a function
+                doMathOperation( SPU, mulNumbers );
+                break;
             case SUB:
+                doMathOperation( SPU, subNumbers );
+                break;
             case ADD:
+                doMathOperation( SPU, sumNumbers );
+                break;
             case DIV:
-                doMathOperation( SPU, (SPU->code).command[ SPU->instructionPointer ] );
+                doMathOperation( SPU, divNumbers );
                 break;
             case OUT:
                 doOut( SPU );
@@ -37,9 +41,6 @@ void calculationFromProcessor( Processor *SPU, const char* byteFile ){
                 break;
             case IN:
                 doIn( SPU );
-                break;
-            case SOLVER:
-                doSolveEquation( SPU );
                 break;
             case POPR:
                 doPopr( SPU );
@@ -69,7 +70,6 @@ void calculationFromProcessor( Processor *SPU, const char* byteFile ){
                 break;
         }
         ++(SPU->instructionPointer);
-
     }
 }
 
@@ -77,25 +77,26 @@ void doPush( Processor* SPU ){
     stackPush( &(SPU->stk), (SPU->code).command[ ++(SPU->instructionPointer) ] );
     stackPrint( &(SPU->stk) );
 }
-void doMathOperation( Processor* SPU, int typeOfOperation){ // TODO pass ptr to action (e.g. addition function)
+int sumNumbers( int first, int last ){
+    return first + last;
+}
+int mulNumbers( int first, int last ){
+    return first * last;
+}
+int subNumbers( int first, int last ){
+    return first - last;
+}
+int divNumbers( int first, int last ){
+    if( last != 0 ){
+        return first / last;
+    }
+    colorPrintf( NOMODE, RED, "\n\nDivision by zero\n\n" );
+    return (int)0;
+}
+void doMathOperation( Processor* SPU, int( *mathFunction )( int first, int last)){
     int last = stackPop( &(SPU->stk) );
     int first = stackPop( &(SPU->stk) );
-    switch (typeOfOperation){
-        case MUL:
-            stackPush( &(SPU->stk), first * last );
-            break;
-        case ADD:
-            stackPush( &(SPU->stk) , first + last );
-            break;
-        case SUB:
-            stackPush( &(SPU->stk), first - last );
-            break;
-        case DIV:
-            stackPush( &(SPU->stk), first / last );
-            break;
-        default:
-            break;
-    }
+    stackPush( &(SPU->stk), mathFunction( first, last ) );
     stackPrint( &(SPU->stk) );
 }
 void doOut( Processor* SPU ){
@@ -130,12 +131,6 @@ void doPushr( Processor* SPU ){
     stackPush( &(SPU->stk), (SPU->regs)[ indexOfRegister ] );
     stackPrint( &(SPU->stk) );
     regsPrint( SPU );
-}
-void doSolveEquation( Processor* SPU ){
-    Coefficients coefficients = {1, -2, -8};
-    SolveResult answer = { NAN, NAN, zeroRoot};
-    solveEquation( coefficients, &answer );
-    printResult( coefficients, answer );
 }
 void doJB( Processor* SPU ){
     int last = stackPop( &(SPU->stk) );

@@ -14,7 +14,6 @@ enum doCommand {
     DIV         = 6,
     SQRT        = 7,
     IN          = 9,
-    SOLVER      = 10,
     POPR        = 42,
     PUSHR       = 33,
     JB          = 50,
@@ -31,7 +30,15 @@ void calculationFromProcessor( Processor *SPU, const char* byteFile );
 
 void doPush( Processor* SPU );
 
-void doMathOperation( Processor* SPU, int typeOfOperation);
+void doMathOperation( Processor* SPU, int( *mathFunction )( int first, int last) );
+
+int sumNumbers( int first, int last );
+
+int subNumbers( int first, int last );
+
+int mulNumbers( int first, int last );
+
+int divNumbers( int first, int last );
 
 void doOut( Processor* SPU );
 
@@ -42,8 +49,6 @@ void doIn( Processor* SPU );
 void doPopr( Processor* SPU );
 
 void doPushr( Processor* SPU );
-
-void doSolveEquation( Processor* SPU );
 
 void doJB( Processor* SPU );
 

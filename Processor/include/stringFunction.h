@@ -1,5 +1,5 @@
-#ifndef H_ONEGIN
-#define H_ONEGIN
+#ifndef H_STRINGFUNCTION
+#define H_STRINGFUNCTION
 
 #include <stdbool.h>
 #include <stdlib.h>

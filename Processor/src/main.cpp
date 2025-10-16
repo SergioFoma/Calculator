@@ -14,9 +14,7 @@ int main(int argc, char** argv){
 
     processorInit( &SPU );
 
-    // TODO check argc
-
-    if( strcmp( argv[1], "--softProcessor" ) == 0 ){
+    if( argc > 1 && strcmp( argv[1], "--softProcessor" ) == 0 ){
         calculationFromProcessor( &SPU, argv[2] );
     }
 
