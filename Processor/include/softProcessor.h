@@ -7,6 +7,8 @@
 #include "stack.h"
 
 const size_t sizeOfRegs = 10;
+const size_t sizeRam = 100;
+const size_t newLine = 10;
 
 enum regsIndex {
     RAX             = 0,
@@ -36,6 +38,7 @@ struct Processor{
     Code code;
     size_t instructionPointer;
     int regs[ sizeOfRegs ];
+    int* RAM;
     regsIndex indexForRegister;
     processorError spuErr;
 };
@@ -49,5 +52,7 @@ void processorInit( Processor* SPU );
 void processorDestroy( Processor* SPU );
 
 void regsPrint( Processor* SPU );
+
+void ramPrint( Processor* SPU );
 
 #endif

@@ -1,4 +1,4 @@
-CALL ::2
+CALL :2
 PUSH 1
 POPR RAX ; regs A
 ;_____________
@@ -13,8 +13,8 @@ ADD
 POPR RAX
 PUSHR RAX
 PUSH 10
-JB ::0
-JAE ::1
+JB :0
+JAE :1
 ;__________
 PUSH 69
 :1

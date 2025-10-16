@@ -20,13 +20,10 @@ enum doCommand {
     JB          = 50,
     JAE         = 53,
     CALL        = 60,
-    RET         = 61
+    RET         = 61,
+    PUSHM       = 70,
+    POPM        = 71
 };
-
-/*struct spuCommand {
-    doCommand typeOfCommand;
-    void( *function )( Processor* SPU );
-};*/
 
 void SPULoop( stack_t *stk );
 
@@ -55,5 +52,9 @@ void doJAE( Processor* SPU );
 void doCall( Processor* SPU );
 
 void doRet( Processor* SPU );
+
+void doPushm( Processor* SPU );
+
+void doPopm( Processor* SPU );
 
 #endif

@@ -10,6 +10,7 @@ void processorInit( Processor* SPU ){
     stackInit( &(SPU->stk), startSizeForStack );
     stackInit( &(SPU->regAddr), startSizeForStack );
 
+    SPU->RAM = (int*)calloc( sizeRam, sizeof( int ) );
     SPU->instructionPointer = 0;
     SPU->indexForRegister = RAX;
     SPU->spuErr = CORRECT_SPU;
@@ -63,6 +64,7 @@ void processorDestroy( Processor* SPU ){
     stackDestroy( &(SPU->stk) );
     stackDestroy( &(SPU->regAddr) );
     free( (SPU->code).command );
+    free( SPU->RAM );
 
     (SPU->code).command = NULL;
     SPU->instructionPointer = 0;
@@ -80,3 +82,15 @@ void regsPrint( Processor* SPU ){
     printf("\n");
 }
 
+void ramPrint( Processor* SPU ){
+    SPU_OK( SPU );
+
+    colorPrintf( NOMODE, BLUE, "RAM:\n" );
+    for( size_t index = 0; index < sizeRam; index++){
+        colorPrintf( NOMODE, BLUE, "[ %lu ] = %d", index, (SPU->RAM)[index] );
+        if( index % newLine == 0 && index > 0){
+            printf("\n");
+        }
+    }
+    printf("\n");
+}

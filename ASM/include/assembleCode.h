@@ -26,41 +26,47 @@ enum regsIndex {
     NOT_IDENTIFIED  = 9
 };
 
-void ASM_FPRINTF( FILE* byteFile,  int intFirstArg );
+void asmPrintf( FILE* byteFile,  int intFirstArg );
 
 struct commandForPrint {
     const char* firstArg;
     int intFirstArg;
     void ( *func )( FILE* byteFile,  int intFirstArg);
 };
-
 struct informationOfStringCommand {
     char** arrayWithStringCommand;
     size_t arraySize;
     size_t startSize;
+};
+struct commandForLabel {
+    const char* firstArg;
+    int intFirstArg;
+    bool ( *func )( informationOfStringCommand stringFromFile, size_t* stringIndex, int* labels, int* commandArray, size_t* intIndex );
 };
 
 typeOfErr initStringCommand( informationOfStringCommand* stringCommand );
 
 typeOfErr destroyStringCommand( informationOfStringCommand* stringCommand );
 
-typeOfErr assemble( const char* fileForAsm, const char* fileForByteCode, int* labels, bool writeOrNot );
+typeOfErr assemble( const char* fileForAsm, const char* fileForByteCode, int* labels );
 
-typeOfErr takeCommandArray( strInformation stringFromFile, informationOfStringCommand* stringCommand, size_t* sizeOfIntCommands );
+typeOfErr splitToOperands( strInformation stringFromFile, informationOfStringCommand* stringCommand );
 
-typeOfErr takeIntArray( informationOfStringCommand stringFromFile, FILE* byteFile, int* labels, int* arrayWithIntCommand );
+size_t encodeCommands( informationOfStringCommand stringFromFile, FILE* byteFile, int* labels, int* commandArray, bool* doSecondPass );
 
-bool parseCommandName( char* lineFromFile );
+void parseCommandName( char* lineFromFile );
 
 typeOfErr writeToFile( strInformation stringFromFile, FILE* byteFile, int* labels, size_t* countOfCommand );
 
 bool findLabels( FILE* byteFile, char* lineFromFile, int* labels, size_t* countOfCommand );
 
-bool checkNumber( FILE* byteFile, informationOfStringCommand stringFromFile, size_t* stringIndex, int* arrayWithIntCommand, size_t* intIndex );
+bool checkNumber( informationOfStringCommand stringFromFile, size_t* stringIndex, int* commandArray, size_t* intIndex );
 
-bool checkLabel( FILE* byteFile, informationOfStringCommand stringFromFile, size_t* stringIndex, int* labels, int* arrayWithIntCommand, size_t* intIndex  );
+bool checkLabel( informationOfStringCommand stringFromFile, size_t* stringIndex, int* labels, int* commandArray, size_t* intIndex  );
 
-typeOfErr printInFile( FILE* byteFile, int* arrayWithIntCommand, size_t sizeOfIntCommands );
+bool findLabel( informationOfStringCommand stringFromFile, size_t* stringIndex, int* labels, int* commandArray, size_t* intIndex );
+
+typeOfErr printInFile( FILE* byteFile, int* commandArray, size_t sizeOfIntCommands );
 
 #define GO_NEXT_OR_NOT()            \
     if( flag == true ){             \

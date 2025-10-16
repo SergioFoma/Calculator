@@ -22,7 +22,11 @@ void calculationFromProcessor( Processor *SPU, const char* byteFile ){
             case PUSH:
                 doPush( SPU );
                 break;
-            case MUL: case SUB: case ADD: case DIV:
+            case MUL:
+                // TODO doMathOperation(SPU, ..., addNumbers); addNumbers is a function
+            case SUB:
+            case ADD:
+            case DIV:
                 doMathOperation( SPU, (SPU->code).command[ SPU->instructionPointer ] );
                 break;
             case OUT:
@@ -55,6 +59,12 @@ void calculationFromProcessor( Processor *SPU, const char* byteFile ){
             case RET:
                 doRet( SPU );
                 break;
+            case PUSHM:
+                doPushm( SPU );
+                break;
+            case POPM:
+                doPopm( SPU );
+                break;
             default:
                 break;
         }
@@ -67,7 +77,7 @@ void doPush( Processor* SPU ){
     stackPush( &(SPU->stk), (SPU->code).command[ ++(SPU->instructionPointer) ] );
     stackPrint( &(SPU->stk) );
 }
-void doMathOperation( Processor* SPU, int typeOfOperation){
+void doMathOperation( Processor* SPU, int typeOfOperation){ // TODO pass ptr to action (e.g. addition function)
     int last = stackPop( &(SPU->stk) );
     int first = stackPop( &(SPU->stk) );
     switch (typeOfOperation){
@@ -166,4 +176,20 @@ void doCall( Processor* SPU ){
 void doRet( Processor *SPU ){
     int indexOfReturnCommand = stackPop( &(SPU->regAddr) );
     SPU->instructionPointer = indexOfReturnCommand - 1;
+}
+
+void doPopm( Processor* SPU ){
+    size_t ramIndex = (SPU->code).command[ ++(SPU->instructionPointer) ];
+    colorPrintf(NOMODE, RED, "\nPOPM index = %d\n", ramIndex );
+    (SPU->RAM)[ (SPU->regs)[ramIndex] ] = stackPop( &(SPU->stk) );
+    stackPrint( &(SPU->stk) );
+    ramPrint( SPU );
+}
+
+void doPushm( Processor* SPU ){
+    size_t ramIndex = (SPU->code).command[ ++(SPU->instructionPointer) ];
+    colorPrintf(NOMODE, RED, "\nPUSHM index = %d\n", ramIndex );
+    stackPush( &(SPU->stk), (SPU->RAM)[ (SPU->regs)[ramIndex] ] );
+    ramPrint( SPU );
+    stackPrint( &(SPU->stk) );
 }
