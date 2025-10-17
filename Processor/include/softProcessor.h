@@ -7,9 +7,9 @@
 #include "stack.h"
 
 const size_t sizeOfRegs = 10;
-const size_t sizeRam = 100;
+const size_t sizeRam = 200;
 const size_t newLine = 10;
-const size_t sizeOfVideoMemory = 100;
+const size_t sizeOfVideoMemory = 200;
 
 enum regsIndex {
     RAX             = 0,
@@ -27,6 +27,11 @@ enum processorError {
     REGS_NULL_PTR  = 3,
     SPU_DESTROY    = 4,
     SPU_NULL_PTR   = 5
+};
+
+enum colorForPrint {
+    PURPLE_COLOR = 100,
+    RED_COLOR    = 101
 };
 
 struct Code {
@@ -56,5 +61,7 @@ void processorDestroy( Processor* SPU );
 void regsPrint( Processor* SPU );
 
 void ramPrint( Processor* SPU );
+
+void doColor( Processor* SPU, size_t index );
 
 #endif

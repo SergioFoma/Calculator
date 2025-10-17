@@ -9,14 +9,16 @@
 #include "paint.h"
 
 commandForPrint arrayWithOneCommand[] = {
-    { "PUSH",   1 },
-    { "IN",     9 },
-    { "MUL",    2 },
-    { "SUB",    3 },
-    { "ADD",    5 },
-    { "OUT",    4 },
-    { "HLT",    0 },
+    { "PUSH",  1 },
+    { "IN",    9 },
+    { "MUL",   2 },
+    { "SUB",   3 },
+    { "ADD",   5 },
+    { "OUT",   4 },
+    { "HLT",   0 },
     { "DRAW",  10 },
+    { "DIV",   6  },
+    { "MOD",   11 },
     { "PUSHR", 33 },
     { "POPR",  42 },
     { "PUSHM", 70 },
@@ -25,12 +27,14 @@ commandForPrint arrayWithOneCommand[] = {
     { "[BX]",  RBX },
     { "[CX]",  RCX },
     { "[DX]",  RDX },
-    { "RAX",  RAX },
-    { "RBX",  RBX },
-    { "RCX",  RCX },
-    { "RDX",  RDX },
-    { "VM",   VM },
-    { "RET",  61 }
+    { "RAX",   RAX },
+    { "RBX",   RBX },
+    { "RCX",   RCX },
+    { "RDX",   RDX },
+    { "VM",    VM },
+    { "RET",   61 },
+    { "PURPLE", 100 },
+    { "RED", 101 }
 };
 size_t sizeArrayWithOneCommand = sizeof( arrayWithOneCommand ) / sizeof( arrayWithOneCommand[ 0 ] );
 
@@ -181,7 +185,7 @@ typeOfErr destroyStringCommand( informationOfStringCommand* stringCommand ){
 size_t encodeCommands( informationOfStringCommand stringFromFile, FILE* byteFile, int* labels, int* commandArray, bool* doSecondPass ){
     assert( byteFile != NULL );
 
-    bool flag = false;
+    bool flag = false, resultOfCheckingSecondPass = false;
     size_t stringIndex = 0, intIndex = 0, index = 0;
     printf("______________________\n");
     while( stringIndex < stringFromFile.arraySize){
@@ -198,7 +202,10 @@ size_t encodeCommands( informationOfStringCommand stringFromFile, FILE* byteFile
             if( strcmp( (stringFromFile.arrayWithStringCommand)[ stringIndex ], arrayWithLabelCommand[ index ].firstArg ) == 0 ){
                 commandArray[ intIndex++ ] = arrayWithLabelCommand[ index ].intFirstArg;
                 ++stringIndex;
-                (*doSecondPass) = arrayWithLabelCommand[ index ].func( stringFromFile, &stringIndex, labels, commandArray, &intIndex );
+                resultOfCheckingSecondPass = arrayWithLabelCommand[ index ].func( stringFromFile, &stringIndex, labels, commandArray, &intIndex );
+                if( resultOfCheckingSecondPass == true ) {
+                    *doSecondPass = resultOfCheckingSecondPass;
+                }
                 flag = true;
                 break;
             }

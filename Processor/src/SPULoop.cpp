@@ -33,6 +33,9 @@ void calculationFromProcessor( Processor *SPU, const char* byteFile ){
             case DIV:
                 doMathOperation( SPU, divNumbers );
                 break;
+            case MOD:
+                doMathOperation( SPU, modNumbers );
+                break;
             case OUT:
                 doOut( SPU );
                 break;
@@ -95,6 +98,9 @@ int divNumbers( int first, int last ){
     }
     colorPrintf( NOMODE, RED, "\n\nDivision by zero\n\n" );
     return (int)0;
+}
+int modNumbers( int first, int last ){
+    return ( first % last );
 }
 void doMathOperation( Processor* SPU, int( *mathFunction )( int first, int last)){
     int last = stackPop( &(SPU->stk) );

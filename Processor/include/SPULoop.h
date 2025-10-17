@@ -15,6 +15,7 @@ enum doCommand {
     SQRT        = 7,
     IN          = 9,
     DRAW        = 10,
+    MOD         = 11,
     POPR        = 42,
     PUSHR       = 33,
     JB          = 50,
@@ -40,6 +41,8 @@ int subNumbers( int first, int last );
 int mulNumbers( int first, int last );
 
 int divNumbers( int first, int last );
+
+int modNumbers( int first, int last );
 
 void doOut( Processor* SPU );
 

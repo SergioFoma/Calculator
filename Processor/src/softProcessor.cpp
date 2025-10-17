@@ -87,10 +87,27 @@ void ramPrint( Processor* SPU ){
     SPU_OK( SPU );
 
     colorPrintf( NOMODE, BLUE, "RAM:\n" );
-    for( size_t index = 0; index < sizeRam; index++){
-        colorPrintf( NOMODE, BLUE, "%c ", (SPU->RAM)[index] );
-        if( (index+1) % newLine == 0 ){
+    for( size_t index = 0; index < sizeRam; index+=2){
+        if( (index) % 20 == 0  && index > 0){
             printf("\n");
-        }
+            }
+        doColor( SPU, index );
+    }
+    printf("\n");
+}
+
+void doColor( Processor* SPU, size_t index ){
+    switch( (SPU->RAM)[ index ] ){
+        case PURPLE_COLOR:
+            colorPrintf( NOMODE, PURPLE, "%c ", (SPU->RAM)[ index + 1 ] );
+            //printf("(%lu,%lu) %c ", (index+1)/20, (index+1)%20, (SPU->RAM)[ index + 1 ] );
+            break;
+        case RED_COLOR:
+            colorPrintf( NOMODE, RED, "%c ", (SPU->RAM)[ index + 1 ] );
+            //printf("(%lu,%lu) %c ", (index+1)/20, (index+1)%20, (SPU->RAM)[ index + 1 ] );
+            break;
+        default:
+            printf( "%c ", (SPU->RAM)[ index + 1 ] );
+            break;
     }
 }
