@@ -15,6 +15,7 @@ void processorInit( Processor* SPU ){
     SPU->indexForRegister = RAX;
     SPU->spuErr = CORRECT_SPU;
     (SPU->code).sizeOfCommands = 0;
+    (SPU->regs)[ VM ] = sizeOfVideoMemory;
 }
 
 void softProcessor( const char* nameOfByteFile, Processor* SPU ){
@@ -87,10 +88,9 @@ void ramPrint( Processor* SPU ){
 
     colorPrintf( NOMODE, BLUE, "RAM:\n" );
     for( size_t index = 0; index < sizeRam; index++){
-        colorPrintf( NOMODE, BLUE, "[ %lu ] = %d", index, (SPU->RAM)[index] );
-        if( index % newLine == 0 && index > 0){
+        colorPrintf( NOMODE, BLUE, "%c ", (SPU->RAM)[index] );
+        if( (index+1) % newLine == 0 ){
             printf("\n");
         }
     }
-    printf("\n");
 }

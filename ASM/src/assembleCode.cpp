@@ -16,6 +16,7 @@ commandForPrint arrayWithOneCommand[] = {
     { "ADD",    5 },
     { "OUT",    4 },
     { "HLT",    0 },
+    { "DRAW",  10 },
     { "PUSHR", 33 },
     { "POPR",  42 },
     { "PUSHM", 70 },
@@ -28,6 +29,7 @@ commandForPrint arrayWithOneCommand[] = {
     { "RBX",  RBX },
     { "RCX",  RCX },
     { "RDX",  RDX },
+    { "VM",   VM },
     { "RET",  61 }
 };
 size_t sizeArrayWithOneCommand = sizeof( arrayWithOneCommand ) / sizeof( arrayWithOneCommand[ 0 ] );

@@ -9,12 +9,14 @@
 const size_t sizeOfRegs = 10;
 const size_t sizeRam = 100;
 const size_t newLine = 10;
+const size_t sizeOfVideoMemory = 100;
 
 enum regsIndex {
     RAX             = 0,
     RBX             = 1,
     RCX             = 2,
     RDX             = 3,
+    VM              = 4,
     NOT_IDENTIFIED  = 9
 };
 

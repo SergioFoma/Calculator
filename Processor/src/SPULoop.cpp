@@ -66,6 +66,9 @@ void calculationFromProcessor( Processor *SPU, const char* byteFile ){
             case POPM:
                 doPopm( SPU );
                 break;
+            case DRAW:
+                ramPrint( SPU );
+                break;
             default:
                 break;
         }
@@ -178,13 +181,11 @@ void doPopm( Processor* SPU ){
     colorPrintf(NOMODE, RED, "\nPOPM index = %d\n", ramIndex );
     (SPU->RAM)[ (SPU->regs)[ramIndex] ] = stackPop( &(SPU->stk) );
     stackPrint( &(SPU->stk) );
-    ramPrint( SPU );
 }
 
 void doPushm( Processor* SPU ){
     size_t ramIndex = (SPU->code).command[ ++(SPU->instructionPointer) ];
     colorPrintf(NOMODE, RED, "\nPUSHM index = %d\n", ramIndex );
     stackPush( &(SPU->stk), (SPU->RAM)[ (SPU->regs)[ramIndex] ] );
-    ramPrint( SPU );
     stackPrint( &(SPU->stk) );
 }

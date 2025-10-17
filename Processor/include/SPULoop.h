@@ -14,6 +14,7 @@ enum doCommand {
     DIV         = 6,
     SQRT        = 7,
     IN          = 9,
+    DRAW        = 10,
     POPR        = 42,
     PUSHR       = 33,
     JB          = 50,
