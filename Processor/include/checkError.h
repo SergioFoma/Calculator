@@ -21,11 +21,11 @@ processorError processorVerify( Processor* SPU );
     }while( false )
 
 
-#define SPU_OK( SPU )                                                                               \
+#define SPU_OK( SPU, typeOfErr )                                                                    \
     do{                                                                                             \
         if( processorVerify( SPU ) != CORRECT_SPU ){                                                \
             ( processorDump( __FILE__, __func__, __LINE__, SPU ) );                                 \
-            return ;                                                                                \
+            return typeOfErr;                                                                       \
         }                                                                                           \
     }while( false )
 

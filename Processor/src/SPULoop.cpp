@@ -7,11 +7,12 @@
 #include "paint.h"
 #include "checkError.h"
 
-void calculationFromProcessor( Processor *SPU, const char* byteFile ){
-    SPU_OK( SPU );
+calculatorErrors calculationFromProcessor( Processor *SPU, const char* byteFile ){
+    SPU_OK( SPU, ERROR_FROM_SPU );
 
     softProcessor( byteFile, SPU );
     int DO = 1;
+    calculatorErrors typeOfErr = SUCCESSFUL;
 
     while( (SPU->instructionPointer) < (SPU->code).sizeOfCommands && DO ){
         switch( (SPU->code).command[ SPU->instructionPointer ] ){
@@ -22,52 +23,63 @@ void calculationFromProcessor( Processor *SPU, const char* byteFile ){
                 doPush( SPU );
                 break;
             case MUL:
-                doMathOperation( SPU, mulNumbers );
+                typeOfErr = doMathOperation( SPU, mulNumbers );
+                checkCalculatorStatus( typeOfErr );
                 break;
             case SUB:
-                doMathOperation( SPU, subNumbers );
+                typeOfErr = doMathOperation( SPU, subNumbers );
+                checkCalculatorStatus( typeOfErr );
                 break;
             case ADD:
-                doMathOperation( SPU, sumNumbers );
+                typeOfErr = doMathOperation( SPU, sumNumbers );
+                checkCalculatorStatus( typeOfErr );
                 break;
             case DIV:
-                doMathOperation( SPU, divNumbers );
+                typeOfErr = doMathOperation( SPU, divNumbers );
+                checkCalculatorStatus( typeOfErr );
                 break;
             case MOD:
-                doMathOperation( SPU, modNumbers );
+                typeOfErr = doMathOperation( SPU, modNumbers );
+                checkCalculatorStatus( typeOfErr );
                 break;
             case OUT:
                 doOut( SPU );
                 break;
             case SQRT:
-                doSqrt( SPU );
+                typeOfErr = doSqrt( SPU );
+                checkCalculatorStatus( typeOfErr );
                 break;
             case IN:
                 doIn( SPU );
                 break;
             case POPR:
-                doPopr( SPU );
+                typeOfErr = doPopr( SPU );
+                checkCalculatorStatus( typeOfErr );
                 break;
             case PUSHR:
                 doPushr( SPU );
                 break;
             case JB:
-                doJB( SPU );
+                typeOfErr = doJB( SPU );
+                checkCalculatorStatus( typeOfErr );
                 break;
             case JAE:
-                doJAE( SPU );
+                typeOfErr = doJAE( SPU );
+                checkCalculatorStatus( typeOfErr );
                 break;
             case CALL:
                 doCall( SPU );
                 break;
             case RET:
-                doRet( SPU );
+                typeOfErr = doRet( SPU );
+                checkCalculatorStatus( typeOfErr );
                 break;
             case PUSHM:
                 doPushm( SPU );
                 break;
             case POPM:
-                doPopm( SPU );
+                typeOfErr = doPopm( SPU );
+                checkCalculatorStatus( typeOfErr );
                 break;
             case DRAW:
                 ramPrint( SPU );
@@ -77,6 +89,8 @@ void calculationFromProcessor( Processor *SPU, const char* byteFile ){
         }
         ++(SPU->instructionPointer);
     }
+
+    return typeOfErr;
 }
 
 void doPush( Processor* SPU ){
@@ -100,39 +114,60 @@ int divNumbers( int first, int last ){
     return (int)0;
 }
 int modNumbers( int first, int last ){
-    return ( first % last );
+    if( last != 0 ){
+        return first % last ;
+    }
+    return (int)0;
 }
-void doMathOperation( Processor* SPU, int( *mathFunction )( int first, int last)){
+calculatorErrors doMathOperation( Processor* SPU, int( *mathFunction )( int first, int last)){
     int last = stackPop( &(SPU->stk) );
     int first = stackPop( &(SPU->stk) );
+    if( last == poison_ || first == poison_ ){
+        colorPrintf( NOMODE, RED, "\n\nNot enough elements in stack\n\n");
+        return FEW_ELEMENTS;
+    }
     stackPush( &(SPU->stk), mathFunction( first, last ) );
     stackPrint( &(SPU->stk) );
+    return SUCCESSFUL;
 }
 void doOut( Processor* SPU ){
     printf("%d\n", stackPop( &(SPU->stk ) ) );
     stackPrint( &(SPU->stk) );
 }
-void doSqrt( Processor* SPU ){
+calculatorErrors doSqrt( Processor* SPU ){
     int last = stackPop( &(SPU->stk) );
-    if( last >= 0 ){
-        printf("%d\n", (int)sqrt( last ) );
+    if( last == poison_ ){
+        colorPrintf( NOMODE, RED, "\n\nNot enough elements in stack\n\n");
+        return FEW_ELEMENTS;
     }
-    stackPrint( &(SPU->stk) );
+    else if( last >= 0 ){
+        printf("%d\n", (int)sqrt( last ) );
+        stackPrint( &(SPU->stk) );
+        return SUCCESSFUL;
+    }
+    colorPrintf( NOMODE, RED, "\n\nThe root of a negative numbers\n\n");
+    return THE_ROOT_OF_NEGATIVE_NUMBERS;
 }
 void doIn( Processor* SPU ){
-    int first = 0;
-    colorPrintf( NOMODE, BLUE, "Enter number from keyboard: " );
-    scanf("%d", &first );
-    stackPush( &(SPU->stk), first );
+    int number = 0;
+    colorPrintf( NOMODE, BLUE, "Enter radius from keyboard: " );
+    scanf("%d", &number );
+    //stackPush( &(SPU->stk), first );
+    (SPU->regs)[ RDX ] = number;
     stackPrint( &(SPU->stk) );
 }
-void doPopr( Processor* SPU ){
+calculatorErrors doPopr( Processor* SPU ){
     int last = stackPop( &(SPU->stk) );
+    if( last == poison_ ){
+        colorPrintf( NOMODE, RED, "\n\nNot enough elements in stack\n\n");
+        return FEW_ELEMENTS;
+    }
     int indexOfRegister = (SPU->code).command[ ++(SPU->instructionPointer) ];
     (SPU->regs)[ indexOfRegister ] = last;
     (SPU->indexForRegister) = (regsIndex)indexOfRegister;
     stackPrint( &(SPU->stk) );
     regsPrint( SPU );
+    return SUCCESSFUL;
 }
 void doPushr( Processor* SPU ){
     int indexOfRegister = (SPU->code).command[ ++(SPU->instructionPointer) ];
@@ -141,9 +176,13 @@ void doPushr( Processor* SPU ){
     stackPrint( &(SPU->stk) );
     regsPrint( SPU );
 }
-void doJB( Processor* SPU ){
+calculatorErrors doJB( Processor* SPU ){
     int last = stackPop( &(SPU->stk) );
     int first = stackPop( &(SPU->stk) );
+    if( first == poison_ || last == poison_ ){
+        colorPrintf( NOMODE, RED, "\n\nNot enough elements in stack\n\n");
+        return FEW_ELEMENTS;
+    }
     if( first < last ){
         SPU->instructionPointer = (SPU->code).command[ (SPU->instructionPointer) + 1 ] - 1;
     }
@@ -152,11 +191,16 @@ void doJB( Processor* SPU ){
         //printf("\nElement in code [%lu] = %d\n", SPU->instructionPointer, (SPU->code).command[SPU->instructionPointer]);
     }
     colorPrintf( NOMODE, PURPLE, "\nInstruction pointer = %lu\n", SPU->instructionPointer );
+    return SUCCESSFUL;
 }
 
-void doJAE( Processor* SPU ){
+calculatorErrors doJAE( Processor* SPU ){
     int last = stackPop( &(SPU->stk) );
     int first = stackPop( &(SPU->stk) );
+    if( first == poison_ || last == poison_ ){
+        colorPrintf( NOMODE, RED, "\n\nNot enough elements in stack\n\n");
+        return FEW_ELEMENTS;
+    }
     if( first >= last ){
         SPU->instructionPointer = (SPU->code).command[ (SPU->instructionPointer) + 1 ] - 1;
     }
@@ -165,6 +209,7 @@ void doJAE( Processor* SPU ){
         //printf("\nElement in code from JA [%lu] = %d\n", SPU->instructionPointer, (SPU->code).command[SPU->instructionPointer]);
     }
     colorPrintf( NOMODE, PURPLE, "\nInstruction pointer = %lu\n", SPU->instructionPointer );
+    return SUCCESSFUL;
 }
 
 void doCall( Processor* SPU ){
@@ -177,16 +222,27 @@ void doCall( Processor* SPU ){
     stackPush( &(SPU->regAddr), indexOfNextCommand );
 }
 
-void doRet( Processor *SPU ){
+calculatorErrors doRet( Processor *SPU ){
     int indexOfReturnCommand = stackPop( &(SPU->regAddr) );
+    if( indexOfReturnCommand == poison_ ){
+        colorPrintf( NOMODE, RED, "\n\nNot enough elements in stack\n\n");
+        return FEW_ELEMENTS;
+    }
     SPU->instructionPointer = indexOfReturnCommand - 1;
+    return SUCCESSFUL;
 }
 
-void doPopm( Processor* SPU ){
+calculatorErrors doPopm( Processor* SPU ){
     size_t ramIndex = (SPU->code).command[ ++(SPU->instructionPointer) ];
     colorPrintf(NOMODE, RED, "\nPOPM index = %d\n", ramIndex );
-    (SPU->RAM)[ (SPU->regs)[ramIndex] ] = stackPop( &(SPU->stk) );
+    int ramElement = stackPop( &(SPU->stk ) );
+    if( ramElement == poison_ ){
+        colorPrintf( NOMODE, RED, "Not enough element in stack\n\n");
+        return FEW_ELEMENTS;
+    }
+    (SPU->RAM)[ (SPU->regs)[ramIndex] ] = ramElement;
     stackPrint( &(SPU->stk) );
+    return SUCCESSFUL;
 }
 
 void doPushm( Processor* SPU ){

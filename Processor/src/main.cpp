@@ -14,8 +14,12 @@ int main(int argc, char** argv){
 
     processorInit( &SPU );
 
+    calculatorErrors typeOfErr = SUCCESSFUL;
     if( argc > 1 && strcmp( argv[1], "--softProcessor" ) == 0 ){
-        calculationFromProcessor( &SPU, argv[2] );
+        typeOfErr = calculationFromProcessor( &SPU, argv[2] );
+        if( typeOfErr != SUCCESSFUL ){
+            colorPrintf( NOMODE, RED, "\n\nMain got an error of type: %d\n\n", typeOfErr );
+        }
     }
 
     processorDestroy( &SPU );

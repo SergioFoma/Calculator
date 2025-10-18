@@ -9,39 +9,36 @@
 #include "paint.h"
 
 commandForPrint arrayWithOneCommand[] = {
-    { "PUSH",  1 },
-    { "IN",    9 },
-    { "MUL",   2 },
-    { "SUB",   3 },
-    { "ADD",   5 },
-    { "OUT",   4 },
-    { "HLT",   0 },
-    { "DRAW",  10 },
-    { "DIV",   6  },
-    { "MOD",   11 },
-    { "PUSHR", 33 },
-    { "POPR",  42 },
-    { "PUSHM", 70 },
-    { "POPM",  71 },
-    { "[AX]",  RAX },
-    { "[BX]",  RBX },
-    { "[CX]",  RCX },
-    { "[DX]",  RDX },
+    { "PUSH",  PUSH },
+    { "IN",    IN },
+    { "MUL",   MUL },
+    { "SUB",   SUB },
+    { "ADD",   ADD },
+    { "OUT",   OUT },
+    { "HLT",   HLT },
+    { "DRAW",  DRAW },
+    { "DIV",   DIV  },
+    { "MOD",   MOD },
+    { "PUSHR", PUSHR },
+    { "POPR",  POPR },
+    { "PUSHM", PUSHM },
+    { "POPM",  POPM },
+    { "[RAX]",  RAX },
+    { "[RBX]",  RBX },
+    { "[RCX]",  RCX },
+    { "[RDX]",  RDX },
     { "RAX",   RAX },
     { "RBX",   RBX },
     { "RCX",   RCX },
     { "RDX",   RDX },
-    { "VM",    VM },
-    { "RET",   61 },
-    { "PURPLE", 100 },
-    { "RED", 101 }
+    { "RET",   RET },
 };
 size_t sizeArrayWithOneCommand = sizeof( arrayWithOneCommand ) / sizeof( arrayWithOneCommand[ 0 ] );
 
 commandForLabel arrayWithLabelCommand[] = {
-    { "JB", 50,  checkLabel },
-    { "JAE", 53, checkLabel },
-    { "CALL", 60, checkLabel },
+    { "JB", JB,  checkLabel },
+    { "JAE", JAE, checkLabel },
+    { "CALL", CALL, checkLabel },
 };
 size_t sizeArrayWithLabelCommand = sizeof( arrayWithLabelCommand ) / sizeof( arrayWithLabelCommand[ 0 ] );
 
@@ -89,9 +86,15 @@ typeOfErr assemble( const char* fileForAsm, const char* fileForByteCode, int* la
 
     bool doSecondPass = false;
     size_t sizeOfEncodeCommands = encodeCommands( stringCommand, byteFile, labels, commandArray, &doSecondPass );
+    if( sizeOfEncodeCommands == 0 ){
+        return UNIDENTIFIED_COMMAND;
+    }
 
     if( doSecondPass ){
-        sizeOfEncodeCommands = encodeCommands( stringCommand, byteFile, labels, commandArray, &doSecondPass );
+        sizeOfEncodeCommands = encodeCommands( stringCommand, byteFile, labels, commandArray, NULL );
+        if( sizeOfEncodeCommands == 0 ){
+            return UNIDENTIFIED_COMMAND;
+        }
     }
 
     err = printInFile( byteFile, commandArray, sizeOfEncodeCommands );
@@ -150,7 +153,7 @@ typeOfErr splitToOperands( strInformation stringFromFile, informationOfStringCom
     }
 
     printf("\n\n___________print__from__splitToOperands_____\n\n");
-    for( size_t index = 0; index<(stringCommand->arraySize); index++ ){
+    for( size_t index = 0; index<(stringCommand->arraySize); index++ ){ // charIndex
         printf("'%s'\n", (stringCommand->arrayWithStringCommand)[ index ] );
     }
     return OK;
@@ -222,7 +225,7 @@ size_t encodeCommands( informationOfStringCommand stringFromFile, FILE* byteFile
 
         }
         GO_NEXT_OR_NOT();
-        ++stringIndex;
+        return 0;
     }
 
     return intIndex;

@@ -7,16 +7,17 @@
 #include "stack.h"
 
 const size_t sizeOfRegs = 10;
-const size_t sizeRam = 200;
+const size_t sizeRam = 1600;
 const size_t newLine = 10;
-const size_t sizeOfVideoMemory = 200;
+const size_t sizeOfVideoMemory = 1600;
+const size_t countOfSymbolInLine = 40;
+const size_t startSize = 8;
 
 enum regsIndex {
     RAX             = 0,
     RBX             = 1,
     RCX             = 2,
     RDX             = 3,
-    VM              = 4,
     NOT_IDENTIFIED  = 9
 };
 

@@ -8,15 +8,16 @@
 const size_t lenOfCommand = 20;
 
 enum typeOfErr {
-    OK                 = 0,
-    COMMAND_ERROR      = 1,
-    BYTE_FILE_ERROR    = 2,
-    SPLIT_LINES_ERROR  = 3,
-    INIT_STRING_ERROR  = 4,
-    INIT_BUFFER_ERROR  = 5,
-    INIT_COMMAND_ERROR = 6,
-    COMMAND_NULL_PTR   = 7,
-    NULL_PTR           = 8
+    OK                   = 0,
+    COMMAND_ERROR        = 1,
+    BYTE_FILE_ERROR      = 2,
+    SPLIT_LINES_ERROR    = 3,
+    INIT_STRING_ERROR    = 4,
+    INIT_BUFFER_ERROR    = 5,
+    INIT_COMMAND_ERROR   = 6,
+    COMMAND_NULL_PTR     = 7,
+    NULL_PTR             = 8,
+    UNIDENTIFIED_COMMAND = 9
 };
 enum regsIndex {
     RAX             = 0,
@@ -25,6 +26,28 @@ enum regsIndex {
     RDX             = 3,
     VM              = 4,
     NOT_IDENTIFIED  = 9
+};
+
+enum doCommand {
+    HLT         = 0,
+    PUSH        = 1,
+    MUL         = 2,
+    SUB         = 3,
+    OUT         = 4,
+    ADD         = 5,
+    DIV         = 6,
+    SQRT        = 7,
+    IN          = 9,
+    DRAW        = 10,
+    MOD         = 11,
+    POPR        = 42,
+    PUSHR       = 33,
+    JB          = 50,
+    JAE         = 53,
+    CALL        = 60,
+    RET         = 61,
+    PUSHM       = 70,
+    POPM        = 71
 };
 
 void asmPrintf( FILE* byteFile,  int intFirstArg );

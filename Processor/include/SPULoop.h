@@ -26,13 +26,21 @@ enum doCommand {
     POPM        = 71
 };
 
+enum calculatorErrors {
+    SUCCESSFUL                   = 0,
+    DIV_BY_NULL                  = 1,
+    FEW_ELEMENTS                 = 2,
+    THE_ROOT_OF_NEGATIVE_NUMBERS = 3,
+    ERROR_FROM_SPU               = 4
+};
+
 void SPULoop( stack_t *stk );
 
-void calculationFromProcessor( Processor *SPU, const char* byteFile );
+calculatorErrors calculationFromProcessor( Processor *SPU, const char* byteFile );
 
 void doPush( Processor* SPU );
 
-void doMathOperation( Processor* SPU, int( *mathFunction )( int first, int last) );
+calculatorErrors doMathOperation( Processor* SPU, int( *mathFunction )( int first, int last) );
 
 int sumNumbers( int first, int last );
 
@@ -46,24 +54,28 @@ int modNumbers( int first, int last );
 
 void doOut( Processor* SPU );
 
-void doSqrt( Processor* SPU );
+calculatorErrors doSqrt( Processor* SPU );
 
 void doIn( Processor* SPU );
 
-void doPopr( Processor* SPU );
+calculatorErrors doPopr( Processor* SPU );
 
 void doPushr( Processor* SPU );
 
-void doJB( Processor* SPU );
+calculatorErrors doJB( Processor* SPU );
 
-void doJAE( Processor* SPU );
+calculatorErrors doJAE( Processor* SPU );
 
 void doCall( Processor* SPU );
 
-void doRet( Processor* SPU );
+calculatorErrors doRet( Processor* SPU );
 
 void doPushm( Processor* SPU );
 
-void doPopm( Processor* SPU );
+calculatorErrors doPopm( Processor* SPU );
 
+#define checkCalculatorStatus( typeOfErr )          \
+    if( typeOfErr != SUCCESSFUL ){                  \
+        return typeOfErr;                           \
+    }
 #endif
